@@ -1,0 +1,84 @@
+.grid {
+	display: flex;
+	flex-direction: column;
+}
+.row {
+	display: flex;
+}
+
+button {
+	width: 32px;
+	height: 32px;
+	margin: 0.5px;
+    border-width: 0.5px;
+    border-radius: 0px;
+    background-color:  rgb(243, 225, 195);
+    font-size: 20px;
+
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	border: none;
+	padding: 0;
+}
+
+.active {
+	background-color:rgb(195, 160, 130);
+	color: white;
+}
+
+.availablePosition {
+	background-color: rgb(195, 160, 130);
+	color: white;
+}
+
+.black{
+    color: black;
+}
+
+.transparent{
+	color: rgba(0, 0, 0, 0.5);
+}
+
+.availablePosition:hover {
+    cursor: pointer;
+    background-color: darkgray;
+}
+
+ button.tree {
+	background-image: url('/assets/block.png');
+}
+
+button.grass {
+	background-image: url('/assets/ground.png');
+} 
+
+.dices-container{
+    display: flex;
+    gap: 16px;
+}
+
+.control-panel{
+    margin: 16px auto;
+}
+
+.button-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100px; /* or whatever height you want */
+}
+
+
+/*
+ * Dice.css v1.0
+ * Code - MIT License - https://github.com/diafygi/dice-css
+ * Images - Public Domain - https://openclipart.org/detail/105931/sixsided-dice-faces-lio-01
+ */
+ .dice{display:inline-block;min-height:3em;min-width: 3em;padding-left:1em;background-size:3em;background-repeat:no-repeat;}
+ .dice-1{background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 77 77' height='21.6' width='21.6'%3E%3Cpath d='M1,26Q1,1 26,1h25Q76,1 76,26v25Q76,76 51,76h-25Q1,76 1,51z' style='fill:%23fff;stroke-width:1.5;stroke:%23000'/%3E%3Ccircle cx='38' cy='38' r='7.2' style='fill:%23000;stroke:none'/%3E%3C/svg%3E");}
+ .dice-2{background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 77 77' height='21.6' width='21.6'%3E%3Cpath d='M1,26Q1,1 26,1h25Q76,1 76,26v25Q76,76 51,76h-25Q1,76 1,51z' style='fill:%23fff;stroke-width:1.5;stroke:%23000'/%3E%3Cg style='fill:%23000;stroke:none'%3E%3Ccircle cx='20' cy='20' r='7.2'/%3E%3Ccircle cx='57' cy='57' r='7.2'/%3E%3C/g%3E%3C/svg%3E");}
+ .dice-3{background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 77 77' height='21.6' width='21.6'%3E%3Cpath d='M1,26Q1,1 26,1h25Q76,1 76,26v25Q76,76 51,76h-25Q1,76 1,51z' style='fill:%23fff;stroke-width:1.5;stroke:%23000'/%3E%3Cg style='fill:%23000;stroke:none'%3E%3Ccircle cx='20' cy='20' r='7.2'/%3E%3Ccircle cx='38' cy='38' r='7.2'/%3E%3Ccircle cx='57' cy='57' r='7.2'/%3E%3C/g%3E%3C/svg%3E");}
+ .dice-4{background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 77 77' height='21.6' width='21.6'%3E%3Cpath d='M1,26Q1,1 26,1h25Q76,1 76,26v25Q76,76 51,76h-25Q1,76 1,51z' style='fill:%23fff;stroke-width:1.5;stroke:%23000'/%3E%3Cg style='fill:%23000;stroke:none'%3E%3Ccircle cx='20' cy='20' r='7.2'/%3E%3Ccircle cx='57' cy='57' r='7.2'/%3E%3Ccircle cx='57' cy='20' r='7.2'/%3E%3Ccircle cx='20' cy='57' r='7.2'/%3E%3C/g%3E%3C/svg%3E");}
+ .dice-5{background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 77 77' height='21.6' width='21.6'%3E%3Cpath d='M1,26Q1,1 26,1h25Q76,1 76,26v25Q76,76 51,76h-25Q1,76 1,51z' style='fill:%23fff;stroke-width:1.5;stroke:%23000'/%3E%3Cg style='fill:%23000;stroke:none'%3E%3Ccircle cx='20' cy='20' r='7.2'/%3E%3Ccircle cx='57' cy='57' r='7.2'/%3E%3Ccircle cx='57' cy='20' r='7.2'/%3E%3Ccircle cx='20' cy='57' r='7.2'/%3E%3Ccircle cx='38' cy='38' r='7.2'/%3E%3C/g%3E%3C/svg%3E");}
+ .dice-6{background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 77 77' height='21.6' width='21.6'%3E%3Cpath d='M1,26Q1,1 26,1h25Q76,1 76,26v25Q76,76 51,76h-25Q1,76 1,51z' style='fill:%23fff;stroke-width:1.5;stroke:%23000'/%3E%3Cg style='fill:%23000;stroke:none'%3E%3Ccircle cx='20' cy='20' r='7.2'/%3E%3Ccircle cx='57' cy='57' r='7.2'/%3E%3Ccircle cx='57' cy='20' r='7.2'/%3E%3Ccircle cx='20' cy='57' r='7.2'/%3E%3Ccircle cx='20' cy='38' r='7.2'/%3E%3Ccircle cx='57' cy='38' r='7.2'/%3E%3C/g%3E%3C/svg%3E");}
