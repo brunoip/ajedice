@@ -1,6 +1,7 @@
 .grid {
 	display: flex;
 	flex-direction: column;
+	margin: 0px auto;
 }
 .row {
 	display: flex;
@@ -43,6 +44,14 @@ button {
     color: white;
 }
 
+.text{
+	margin: 8px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 24px;
+    font-family: monospace;
+}
+
 .transparent{
 	color: rgba(0, 0, 0, 0.5);
 	z-index: 1; /* Ensure it's on top of coin */
@@ -55,16 +64,19 @@ button {
 }
 
  button.tree {
-	background-image: url('/assets/block.png');
+	background-image: url('/ajedice/assets/block.png');
 }
 
 button.grass {
-	background-image: url('/assets/ground.png');
+	background-image: url('/ajedice/assets/ground.png');
 } 
 
 .dices-container{
-    display: flex;
-    gap: 16px;
+	display: flex;
+	gap: 16px;
+	margin: 0px auto;
+	justify-content: center;
+	align-items: center;
 }
 
 .control-panel{
@@ -84,13 +96,13 @@ button.grass {
 }
 
 .character-select button {
-	width: 56px;
-	height: 56px;
+	width: 42px;
+	height: 42px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	border: 2px solid #ccc;
-	border-radius: 8px;
+	border-radius: 4px;
 	background-color: #fff;
 	cursor: pointer;
 	font-size: 24px;

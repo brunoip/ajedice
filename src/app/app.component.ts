@@ -43,7 +43,7 @@ export class AppComponent {
 		// Initialize the 16x16 matrix
 		for (let y = 0; y < 16; y++) {
 			const row = [];
-			for (let x = 0; x < 16; x++) {
+			for (let x = 0; x < 10; x++) {
 				row.push('');
 			}
 			this.square.push(row);
@@ -70,7 +70,8 @@ export class AppComponent {
     for (let i = 0; i < this.maxCoins; i++) {
       const randomValueX = Math.floor(Math.random() * 14) + 1; 
       const randomValueY = Math.floor(Math.random() * 14) + 1;
-      this.coins.push({x:randomValueX, y:randomValueY});
+      if(!this.isThereATree(randomValueX,randomValueY))
+        this.coins.push({x:randomValueX, y:randomValueY});
     }
   }
 

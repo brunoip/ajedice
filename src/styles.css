@@ -1,4 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
-body{
+body {
     background-color: rgb(58, 99, 59);
+}
+
+main {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: inherit;
+    position: relative;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 3rem;
 }
