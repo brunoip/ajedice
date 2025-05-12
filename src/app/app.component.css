@@ -65,11 +65,11 @@ button {
 }
 
  button.tree {
-	background-image: url('/assets/block.png');
+	background-image: url('/ajedice/assets/block.png');
 }
 
 button.grass {
-	background-image: url('/assets/ground.png');
+	background-image: url('/ajedice/assets/ground.png');
 } 
 
 .dices-container{
