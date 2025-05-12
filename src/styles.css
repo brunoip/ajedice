@@ -1,4 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+html, body {
+	touch-action: manipulation;
+}
+
 body {
     background-color: rgb(58, 99, 59);
 }
