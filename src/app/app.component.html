@@ -18,13 +18,14 @@
               'active': isSamePosition(x, y)
             }">
             
-            <ng-container *ngIf="isSamePosition(x, y)">
-              <i class="fa-solid fa-person black"></i>            
-            </ng-container>
-
             <ng-container *ngIf="isAvailablePosition(x, y)">
               <i class="fa-solid fa-square transparent"></i>
             </ng-container>
+
+             	<!-- Coin image if present -->
+               <ng-container *ngIf="isSamePosition(x, y)">
+                <img src="assets/user.png" alt="User" class="user" />
+              </ng-container>
 
             	<!-- Coin image if present -->
               <ng-container *ngIf="isThereACoin(x, y)">
@@ -65,9 +66,9 @@
         </div>
 
         <div class="music-control-panel">
-          <audio #ref src="https://soundbible.com/grab.php?id=1964&type=mp3"></audio>
-          <button (click)="ref.play()"><i class="fa-solid fa-play"></i></button>
-          <button (click)="ref.pause()"><i class="fa-solid fa-pause"></i></button>
+          
+          <button (click)="playAudio()"><i class="fa-solid fa-play"></i></button>
+          <button (click)="stopAudio()"><i class="fa-solid fa-pause"></i></button>
         </div>
         
       </div>

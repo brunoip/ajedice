@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit  } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common'
 import { isAvailablePositionOld, isAvailablePositionKnight, isAvailablePositionPawn, isAvailablePositionBishop, isAvailablePositionQueen, isAvailablePositionRook, isThereAnObstacle} from '../app/utils/math-utils';
+import { AudioService } from '../app/services/audio.service';
 
 interface SquarePosition {x: number, y:number}
 
@@ -13,7 +14,7 @@ interface SquarePosition {x: number, y:number}
   styleUrl: './app.component.css'
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'ajedice';
   square: any[][] = [];
   dices: number[] = [];
@@ -38,8 +39,9 @@ export class AppComponent {
 
 	selectedCharacterIndex: number | null = 0;
 
+  private audio!: HTMLAudioElement;
 
-  constructor() {
+  constructor( private audioService: AudioService ) {
 		// Initialize the 16x16 matrix
 		for (let y = 0; y < 16; y++) {
 			const row = [];
@@ -56,6 +58,23 @@ export class AppComponent {
 
     this.generateTrees();
     this.generateCoins();
+	}
+
+  ngOnInit() {
+		this.audioService.init('assets/sounds/music.wav', true); // Enable looping
+    this.playAudio()
+	}
+
+  playAudio() {
+		this.audioService.play();
+	}
+
+	stopAudio() {
+		this.audioService.stop();
+	}
+
+	ngOnDestroy() {
+		this.audioService.stop();
 	}
 
   generateTrees(){
@@ -107,7 +126,7 @@ export class AppComponent {
 
     if(distanceMoved>0){
       this.removeClosestGreaterOrEqual(distanceMoved);
-      const audio = new Audio('assets/pieceMove.mp3');
+      const audio = new Audio('assets/sounds/pieceMove.mp3');
 
 
       audio.onerror = () => {
