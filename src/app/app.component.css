@@ -22,8 +22,7 @@ button {
 	border: none;
 	padding: 0;
 
-	position: relative; /* Enable absolute positioning for child elements */
-
+	position: relative;
 }
 
 .active {
@@ -87,7 +86,7 @@ button.grass {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 100px; /* or whatever height you want */
+	margin: 16px;
 }
 
 .character-select {
@@ -116,7 +115,11 @@ button.grass {
 }
 
 .music-control-panel{
-	margin: 12px auto;
+	display: flex;
+	justify-content: center; 
+	align-items: center; 
+	gap: 8px;
+	margin-top: 1rem; 
 }
 
 .coin-overlay {
