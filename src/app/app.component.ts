@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common'
+import { isAvailablePositionOld, isAvailablePositionKnight, isAvailablePositionPawn, isAvailablePositionBishop, isAvailablePositionQueen, isAvailablePositionRook, isThereAnObstacle} from '../app/utils/math-utils';
 
 interface SquarePosition {x: number, y:number}
 
@@ -13,19 +14,37 @@ interface SquarePosition {x: number, y:number}
 })
 
 export class AppComponent {
-  title = 'checkerboard';
+  title = 'ajedice';
   square: any[][] = [];
   dices: number[] = [];
-  trees: SquarePosition[] = [];
+
+  trees: SquarePosition[] = []; 
+   maxTrees = 32;
+
+   coins: SquarePosition[] = []; 
+   maxCoins = 10;
+
+   score: number  = 0;
+
   currentPosition: SquarePosition = {x:3, y:4}
-  maxTrees = 20;
+
+  characters = [
+		{ name: 'Pawn', icon: 'fas fa-chess-pawn' },
+		{ name: 'Knight', icon: 'fas fa-chess-knight' },
+		{ name: 'Bishop', icon: 'fas fa-chess-bishop' },
+		{ name: 'Rook', icon: 'fas fa-chess-rook' },
+		{ name: 'Queen', icon: 'fas fa-chess-queen' }
+	];
+
+	selectedCharacterIndex: number | null = 0;
+
 
   constructor() {
 		// Initialize the 16x16 matrix
 		for (let y = 0; y < 16; y++) {
 			const row = [];
 			for (let x = 0; x < 16; x++) {
-				row.push(''); // or new Square() if you have a class
+				row.push('');
 			}
 			this.square.push(row);
 		}
@@ -36,19 +55,22 @@ export class AppComponent {
     this.dices.push(4);
 
     this.generateTrees();
-	}
-
-	squareClicked(x: number, y: number): void {
-		console.log(`Button at (${x}, ${y}) clicked.`);
-		// Your logic here
+    this.generateCoins();
 	}
 
   generateTrees(){
-
     for (let i = 0; i < this.maxTrees; i++) {
       const randomValueX = Math.floor(Math.random() * 14) + 1; 
       const randomValueY = Math.floor(Math.random() * 14) + 1;
       this.trees.push({x:randomValueX, y:randomValueY});
+    }
+  }
+
+  generateCoins(){
+    for (let i = 0; i < this.maxCoins; i++) {
+      const randomValueX = Math.floor(Math.random() * 14) + 1; 
+      const randomValueY = Math.floor(Math.random() * 14) + 1;
+      this.coins.push({x:randomValueX, y:randomValueY});
     }
   }
 
@@ -63,89 +85,29 @@ export class AppComponent {
     return this.currentPosition.x === x && this.currentPosition.y === y;
   }
 
-  isThereATree(x: number, y: number): boolean {
-    for (let i = 0; i < this.maxTrees; i++) {
-      if(this.trees[i].x === x && this.trees[i].y === y)
-        return true;
-    }
-    return false
-  }
-  
-  isInList(x: number, y: number): boolean {
-    return false;
-  }
-
-  // isAvailablePosition(x: number, y: number): boolean {
-  //   if( x === this.currentPosition.x && y === this.currentPosition.y)
-  //     return false;
-  //   if( ( x <= this.currentPosition.x + this.maxDiceValue() && x > this.currentPosition.x && y === this.currentPosition.y) ||
-  //       ( x >= this.currentPosition.x - this.maxDiceValue() && x < this.currentPosition.x && y === this.currentPosition.y) ||
-
-  //   ( y <= this.currentPosition.y + this.maxDiceValue() && y > this.currentPosition.y && x === this.currentPosition.x) || 
-  //   ( y >= this.currentPosition.y - this.maxDiceValue() && y < this.currentPosition.y && x === this.currentPosition.x) )
-  //   return true;
-  // return false
-  // }
-
-  isAvailablePosition(x: number, y: number): boolean {
-    // Can't move to the current position
-    if (x === this.currentPosition.x && y === this.currentPosition.y)
-      return false;
-  
-    const dx = x - this.currentPosition.x;
-    const dy = y - this.currentPosition.y;
-  
-    const absDx = Math.abs(dx);
-    const absDy = Math.abs(dy);
-  
-    // Only allow movement in a straight line (horizontal or vertical)
-    if (absDx !== 0 && absDy !== 0)
-      return false;
-  
-    const distance = absDx + absDy;
-    if (distance > this.maxDiceValue())
-      return false;
-  
-    // Determine direction of movement
-    const stepX = dx === 0 ? 0 : dx / absDx; // -1, 0, or 1
-    const stepY = dy === 0 ? 0 : dy / absDy; // -1, 0, or 1
-  
-    let cx = this.currentPosition.x;
-    let cy = this.currentPosition.y;
-  
-    // Check each step until the destination
-    for (let i = 1; i <= distance; i++) {
-      cx += stepX;
-      cy += stepY;
-  
-      // If blocked, can't proceed
-      if (this.isThereATree(cx, cy)) {
-        return false;
-      }
-  
-      // If we've reached the target and no blocks found
-      if (cx === x && cy === y) {
-        return true;
-      }
-    }
-  
-    return false;
-  }
-
   moveToPosition(x: number, y: number){
     let distanceMoved = 0;
-    if( this.isAvailablePosition(x,y) && !this.isSamePosition(x,y) ){
-      if( x === this.currentPosition.x)
-        distanceMoved = Math.abs( this.currentPosition.y - y);
-      if( y === this.currentPosition.y)
-        distanceMoved = Math.abs( this.currentPosition.x - x);
-      this.currentPosition = {x:x, y:y};
-    } 
 
-    console.log(distanceMoved);
+    if (this.isAvailablePosition(x, y) && !this.isSamePosition(x, y)) {
+      const dx = Math.abs(this.currentPosition.x - x);
+      const dy = Math.abs(this.currentPosition.y - y);
+    
+      if (x === this.currentPosition.x) {
+        distanceMoved = dy; // Vertical move
+      } else if (y === this.currentPosition.y) {
+        distanceMoved = dx; // Horizontal move
+      } else if (dx === dy) {
+        distanceMoved = dx; // Diagonal move
+      }
+    
+      this.currentPosition = { x, y };
+      this.removeCoin(x, y);
+    }
+
     if(distanceMoved>0){
       this.removeClosestGreaterOrEqual(distanceMoved);
       const audio = new Audio('assets/pieceMove.mp3');
+
 
       audio.onerror = () => {
         console.error('Audio error code:', audio.error?.code);
@@ -155,8 +117,16 @@ export class AppComponent {
       audio.play().catch(err => {
         console.error('Playback failed:', err);
       });
+
     }
-     
+  }
+
+  removeCoin(x: number, y: number): void {
+    const index = this.coins.findIndex(coin => coin.x === x && coin.y === y);
+    if (index !== -1) {
+      this.coins.splice(index, 1); // Remove the coin
+      this.score += 100; // Increase score
+    }  
   }
 
   removeClosestGreaterOrEqual(target: number): void {
@@ -179,12 +149,60 @@ export class AppComponent {
   reRoll(){
     if(this.dices.length<6){
       for (let i = 0; i < 3; i++) {
-      const randomValue = Math.floor(Math.random() * 6) + 1; // random number from 1 to 6
-      this.dices.push(randomValue);
+        const randomValue = Math.floor(Math.random() * 6) + 1; // random number from 1 to 6
+        this.dices.push(randomValue);
+      }
     }
-    }
-    
   }
 
+  selectCharacter(index: number): void {
+		this.selectedCharacterIndex = index;
+	}
 
+	getSelectedCharacter() {
+		return this.selectedCharacterIndex !== null
+			? this.characters[this.selectedCharacterIndex]
+			: null;
+	}
+
+  isAvailablePosition(x: number, y: number): boolean{
+    // Can't move to the current position
+    if (x === this.currentPosition.x && y === this.currentPosition.y)
+      return false;
+
+    const character = this.getSelectedCharacter()?.name;
+    switch (character)
+    {
+      case "Queen":
+        return isAvailablePositionQueen(this.currentPosition, {x,y}, this.maxDiceValue(), this.trees, this.maxTrees);
+        break;
+      case "Bishop":
+        return isAvailablePositionBishop(this.currentPosition, {x,y}, this.maxDiceValue(), this.trees, this.maxTrees);
+        break;
+      case "Rook": 
+        return isAvailablePositionRook(this.currentPosition, {x,y}, this.maxDiceValue(), this.trees, this.maxTrees);
+        break;
+      case "Knight": 
+        return isAvailablePositionKnight(this.currentPosition, {x,y}, this.maxDiceValue(), this.trees, this.maxTrees);
+        break;
+      case "Pawn": 
+        return isAvailablePositionPawn(this.currentPosition, {x,y}, this.maxDiceValue(), this.trees, this.maxTrees);
+        break;
+      default: 
+        return isAvailablePositionOld(this.currentPosition, {x,y}, this.maxDiceValue());
+        break;
+    }
+  }
+  
+  isThereATree(x: number, y: number): boolean {
+    return isThereAnObstacle({x:x, y:y}, this.trees, this.maxTrees);
+  }
+
+  isThereACoin(x: number, y: number): boolean {
+    for (let i = 0; i < this.coins.length; i++) {
+      if(this.coins[i].x === x && this.coins[i].y === y)
+      return true;
+    }
+    return false
+  }
 }

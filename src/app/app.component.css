@@ -20,6 +20,9 @@ button {
 	background-repeat: no-repeat;
 	border: none;
 	padding: 0;
+
+	position: relative; /* Enable absolute positioning for child elements */
+
 }
 
 .active {
@@ -36,8 +39,14 @@ button {
     color: black;
 }
 
+.white{
+    color: white;
+}
+
 .transparent{
 	color: rgba(0, 0, 0, 0.5);
+	z-index: 1; /* Ensure it's on top of coin */
+	position: relative; /* Required for z-index to take effect */
 }
 
 .availablePosition:hover {
@@ -69,6 +78,45 @@ button.grass {
 	height: 100px; /* or whatever height you want */
 }
 
+.character-select {
+	display: flex;
+	gap: 10px;
+}
+
+.character-select button {
+	width: 56px;
+	height: 56px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 2px solid #ccc;
+	border-radius: 8px;
+	background-color: #fff;
+	cursor: pointer;
+	font-size: 24px;
+	transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.character-select button.active {
+	background-color: #007bff;
+	color: white;
+	border-color: #007bff;
+}
+
+.music-control-panel{
+	margin: 12px auto;
+}
+
+.coin-overlay {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 24px; /* Adjust size as needed */
+	height: 24px;
+	pointer-events: none; /* So it doesn’t interfere with button clicks */
+	z-index: 2; /* Ensure it's on top of background, below or above icons if needed */
+}
 
 /*
  * Dice.css v1.0
