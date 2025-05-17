@@ -10,7 +10,7 @@
 button {
 	width: 32px;
 	height: 32px;
-	margin: 0.5px;
+	margin: 0px;
     border-width: 0.5px;
     border-radius: 0px;
     background-color:  rgb(243, 225, 195);
@@ -65,11 +65,11 @@ button {
 }
 
  button.tree {
-	background-image: url('/ajedice/assets/block.png');
+	background-image: url('/assets/block.png');
 }
 
 button.grass {
-	background-image: url('/ajedice/assets/ground.png');
+	background-image: url('/assets/ground.png');
 } 
 
 .dices-container{
@@ -133,6 +133,17 @@ button.grass {
 	height: 24px;
 	pointer-events: none; /* So it doesn’t interfere with button clicks */
 	z-index: 2; /* Ensure it's on top of background, below or above icons if needed */
+}
+
+.tile-overlay {
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 32px;
+    height: 32px;
+    pointer-events: none;
+    z-index: 1;
 }
 
 .user{

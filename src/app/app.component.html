@@ -11,21 +11,24 @@
           <button
             *ngFor="let col of row; let x = index"
             (click)="moveToPosition(x, y)"
-            [ngClass]="{
-              'tree': isThereATree(x, y),
-              'grass': !isThereATree(x, y),
-              'availablePosition': isAvailablePosition(x, y),
-              'active': isSamePosition(x, y)
-            }">
+            [ngClass]="{ }" >
+
+            <ng-container>
+              <img [src]="getTile(x, y)" class="tile-overlay"/>
+            </ng-container>
+
+            <ng-container *ngIf="isThereATree(x, y)">
+              <img src="assets/obstacle.png" alt="Coin" class="coin-overlay" />
+            </ng-container>
             
             <ng-container *ngIf="isAvailablePosition(x, y)">
               <i class="fa-solid fa-square transparent"></i>
             </ng-container>
 
-             	<!-- Coin image if present -->
-               <ng-container *ngIf="isSamePosition(x, y)">
-                <img src="assets/user.png" alt="User" class="user" />
-              </ng-container>
+            <ng-container *ngIf="isSamePosition(x, y)">
+              <img src="assets/user.png" alt="User" class="user" />
+              <!-- <img src="assets/coin.gif" alt="Coin" class="coin-overlay" /> -->
+            </ng-container>
 
             	<!-- Coin image if present -->
               <ng-container *ngIf="isThereACoin(x, y)">
