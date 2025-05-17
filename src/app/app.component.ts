@@ -94,7 +94,7 @@ export class AppComponent implements OnInit, OnDestroy {
   getTile(x: number, y: number): string {
     const tileindex= this.board[y][x];
     const tileName = this.tiles[tileindex];
-    return `/assets/${tileName}.png`;
+    return `assets/${tileName}.png`;
   }
 
   playAudio() {
