@@ -46,16 +46,17 @@
       </div>
 
       <div class="control-panel">
-        <div class="dices-container">
-          <div *ngFor="let dice of dices; let d = index">
-            <div>
-              <span class="dice" [ngClass]="'dice-' + dice"></span>
+        <div class="dice-panel">
+          <div class="button-wrapper">
+            <button   class="fa-solid fa-arrows-rotate" (click)="reRoll()"></button>
+          </div>
+          <div class="dices-container">
+            <div *ngFor="let dice of dices; let d = index">
+              <div>
+                <span class="dice" [ngClass]="'dice-' + dice"></span>
+              </div>
             </div>
           </div>
-        </div>
-
-        <div class="button-wrapper">
-          <button   class="fas fa-dice" (click)="reRoll()"></button>
         </div>
 
         <div class="character-select">

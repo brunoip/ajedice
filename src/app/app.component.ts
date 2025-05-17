@@ -63,7 +63,7 @@ export class AppComponent implements OnInit, OnDestroy {
 		{ name: 'Queen', icon: 'fas fa-chess-queen' }
 	];
 
-	selectedCharacterIndex: number | null = 0;
+	selectedCharacterIndex: number | null = 3;
 
   private audio!: HTMLAudioElement;
 
@@ -88,7 +88,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 		this.audioService.init('assets/sounds/music.wav', true); // Enable looping
-    this.playAudio()
+    //this.playAudio()
 	}
 
   getTile(x: number, y: number): string {

@@ -81,7 +81,11 @@ button.grass {
 }
 
 .control-panel{
-    margin: 16px auto;
+    margin: 4px auto;
+}
+
+.dice-panel{
+	display: flex;
 }
 
 .button-wrapper {
@@ -94,6 +98,8 @@ button.grass {
 .character-select {
 	display: flex;
 	gap: 10px;
+	margin: auto;
+    width: fit-content;
 }
 
 .character-select button {
