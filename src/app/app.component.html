@@ -30,6 +30,14 @@
               <!-- <img src="assets/coin.gif" alt="Coin" class="coin-overlay" /> -->
             </ng-container>
 
+            <ng-container *ngIf="getEnemyTypeAt(x, y) as scr">
+              <img [src]="'assets/' + scr.toLowerCase() + '.png'" [alt]="scr" class="user" />
+            </ng-container>
+
+            <!-- <ng-container *ngIf="isDeathPosition(x, y)">
+              <i class="fa-solid fa-circle transparent"></i>
+            </ng-container> -->
+
             	<!-- Coin image if present -->
               <ng-container *ngIf="isThereACoin(x, y)">
                 <img src="assets/coin.gif" alt="Coin" class="coin-overlay" />

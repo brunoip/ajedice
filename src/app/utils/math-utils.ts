@@ -13,7 +13,7 @@ export function isAvailablePositionOld(currentPosition: SquarePosition, newPosit
 }
 
   export function isAvailablePositionPawn(currentPosition: SquarePosition, newPosition: SquarePosition, diceValue: number, obstacles: SquarePosition[], maxObstacles: number): boolean { //old
-    const dx = newPosition.x - currentPosition.x;
+    const dx = 0; //newPosition.x - currentPosition.x;
     const dy = newPosition.y - currentPosition.y;
   
     const absDx = Math.abs(dx);

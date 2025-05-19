@@ -5,6 +5,7 @@ import { isAvailablePositionOld, isAvailablePositionKnight, isAvailablePositionP
 import { AudioService } from '../app/services/audio.service';
 
 interface SquarePosition {x: number, y:number}
+interface Enemy {type: string, image: string, position: SquarePosition}
 
 @Component({
   selector: 'app-root',
@@ -22,6 +23,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   trees: SquarePosition[] = []; 
   maxTrees = 32;
+
+  enemies: Enemy[] = [];
 
   coins: SquarePosition[] = []; 
   maxCoins = 10;
@@ -63,7 +66,7 @@ export class AppComponent implements OnInit, OnDestroy {
 		{ name: 'Queen', icon: 'fas fa-chess-queen' }
 	];
 
-	selectedCharacterIndex: number | null = 3;
+	selectedCharacterIndex: number = 3;
 
   private audio!: HTMLAudioElement;
 
@@ -84,6 +87,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.generateTrees();
     this.generateCoins();
+
+    const patovicaTorre: Enemy= {type: 'Rook',image: "patovicatorre", position: {x:4, y:6}}
+    const patovicaAlfil: Enemy= {type: 'Bishop',image: "patovicaalfil", position: {x:12, y:10}}
+
+    this.enemies.push(patovicaTorre);
+    this.enemies.push(patovicaAlfil);
 	}
 
   ngOnInit() {
@@ -140,6 +149,21 @@ export class AppComponent implements OnInit, OnDestroy {
     return this.currentPosition.x === x && this.currentPosition.y === y;
   }
 
+  isThereAnEnemy(x: number, y: number): boolean {
+    return this.enemies.some(enemy => 
+      enemy.position.x === x && enemy.position.y === y
+    );  
+  }
+
+  getEnemyTypeAt(x: number, y: number): string | null {
+    const enemy = this.enemies.find(e =>
+      e.position.x === x && e.position.y === y
+    );
+    return enemy ? enemy.image : null;
+  }
+
+
+
   moveToPosition(x: number, y: number){
     let distanceMoved = 0;
 
@@ -157,6 +181,7 @@ export class AppComponent implements OnInit, OnDestroy {
     
       this.currentPosition = { x, y };
       this.removeCoin(x, y);
+      this.didPlayerDie();
     }
 
     if(distanceMoved>0){
@@ -221,41 +246,62 @@ export class AppComponent implements OnInit, OnDestroy {
 	}
 
 	getSelectedCharacter() {
-		return this.selectedCharacterIndex !== null
-			? this.characters[this.selectedCharacterIndex]
-			: null;
+		return this.characters[this.selectedCharacterIndex]
 	}
 
+
   isAvailablePosition(x: number, y: number): boolean{
-    // Can't move to the current position
     if (x === this.currentPosition.x && y === this.currentPosition.y)
       return false;
 
     if (this.board[y][x] != 9 && this.board[y][x] !=10)
       return false;
 
-    const character = this.getSelectedCharacter()?.name;
-    switch (character)
-    {
-      case "Queen":
-        return isAvailablePositionQueen(this.currentPosition, {x,y}, this.maxDiceValue(), this.trees, this.maxTrees);
-        break;
-      case "Bishop":
-        return isAvailablePositionBishop(this.currentPosition, {x,y}, this.maxDiceValue(), this.trees, this.maxTrees);
-        break;
-      case "Rook": 
-        return isAvailablePositionRook(this.currentPosition, {x,y}, this.maxDiceValue(), this.trees, this.maxTrees);
-        break;
-      case "Knight": 
-        return isAvailablePositionKnight(this.currentPosition, {x,y}, this.maxDiceValue(), this.trees, this.maxTrees);
-        break;
-      case "Pawn": 
-        return isAvailablePositionPawn(this.currentPosition, {x,y}, this.maxDiceValue(), this.trees, this.maxTrees);
-        break;
-      default: 
-        return isAvailablePositionOld(this.currentPosition, {x,y}, this.maxDiceValue());
-        break;
+    const character = this.getSelectedCharacter().name;
+    return this.isAvailablePositionForSomeone(character, this.currentPosition, {x:x, y:y}, this.maxDiceValue());
+  }
+
+  isDeathPosition(x: number, y: number): boolean{
+    return this.enemies.some(enemy => {
+      return this.isAvailablePositionForSomeone(enemy.type, enemy.position, {x:x, y:y}, 16);
+    }); 
+  }
+
+  getDeathEnemyIndex(x: number, y: number): number {
+    return this.enemies.findIndex(enemy =>
+      this.isAvailablePositionForSomeone(enemy.type, enemy.position, { x, y }, 16)
+    );
+  }
+
+  didPlayerDie(){
+    if(this.isDeathPosition(this.currentPosition.x, this.currentPosition.y)){
+      const killer = this.enemies[this.getDeathEnemyIndex(this.currentPosition.x, this.currentPosition.y)];
+      killer.position = this.currentPosition;
     }
+  }
+
+  isAvailablePositionForSomeone( character: string, currentPosition: SquarePosition, newPosition: SquarePosition, diceValue: number): boolean { 
+    switch (character)
+      {
+        case "Queen":
+          return isAvailablePositionQueen(currentPosition, newPosition, diceValue, this.trees, this.maxTrees);
+          break;
+        case "Bishop":
+          return isAvailablePositionBishop(currentPosition, newPosition, diceValue, this.trees, this.maxTrees);
+          break;
+        case "Rook": 
+          return isAvailablePositionRook(currentPosition,newPosition, diceValue, this.trees, this.maxTrees);
+          break;
+        case "Knight": 
+          return isAvailablePositionKnight(currentPosition, newPosition, diceValue, this.trees, this.maxTrees);
+          break;
+        case "Pawn": 
+          return isAvailablePositionPawn(currentPosition, newPosition, diceValue, this.trees, this.maxTrees);
+          break;
+        default: 
+          return isAvailablePositionOld(currentPosition, newPosition, diceValue);
+          break;
+      }
   }
   
   isThereATree(x: number, y: number): boolean {
