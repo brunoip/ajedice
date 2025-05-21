@@ -4,8 +4,46 @@
     <div class="main-title">
       <h3 class="white text">Ajedice</h3>
     </div>
+
+    <div class="grid" [ngStyle]="{ 'grid-template-columns': 'repeat(' + columnCount + ', 1fr)' }">
+      <ng-container *ngFor="let row of board; let y = index">
+        <ng-container *ngFor="let cell of row; let x = index">
+          <button
+            (click)="moveToPosition(x, y)"
+            class="cell-button">
+
+          <ng-container>
+            <img [src]="getTile(x, y)" class="tile-overlay"/>
+          </ng-container>
+
+          <ng-container *ngIf="isThereATree(x, y)">
+            <img src="assets/tileset32x32/pisoapagado.png" class="tile-overlay" />
+          </ng-container>
+          
+          <ng-container *ngIf="isAvailablePosition(x, y)">
+            <img src="assets/tileset32x32/pisoporseleccionar.gif" class="tile-overlay" />
+          </ng-container>
+
+          <ng-container *ngIf="isSamePosition(x, y)">
+            <img src="assets/animacionpeon32x32.gif" alt="User" class="user" />
+          </ng-container>
+
+          <ng-container *ngIf="getEnemyTypeAt(x, y) as scr">
+            <img [src]="'assets/' + scr.toLowerCase() + '.png'" [alt]="scr" class="user" />
+          </ng-container>
+
+          <ng-container *ngIf="isThereACoin(x, y)">
+            <img src="assets/brahma.gif" alt="Coin" class="coin-overlay" />
+          </ng-container>
+
+          </button>
+        </ng-container>
+      </ng-container>
+    </div>
   
-      <div class="grid">
+      <!-- <div class="grid">
+
+        
         <div *ngFor="let row of square; let y = index" class="row">
  
           <button
@@ -18,36 +56,30 @@
             </ng-container>
 
             <ng-container *ngIf="isThereATree(x, y)">
-              <img src="assets/obstacle.png" alt="Coin" class="coin-overlay" />
+              <img src="assets/tileset32x32/pisoapagado.png" class="tile-overlay" />
             </ng-container>
             
             <ng-container *ngIf="isAvailablePosition(x, y)">
-              <i class="fa-solid fa-square transparent"></i>
+              <img src="assets/tileset32x32/pisoporseleccionar.gif" class="tile-overlay" />
             </ng-container>
 
             <ng-container *ngIf="isSamePosition(x, y)">
-              <img src="assets/user.png" alt="User" class="user" />
-              <!-- <img src="assets/coin.gif" alt="Coin" class="coin-overlay" /> -->
+              <img src="assets/animacionpeon32x32.gif" alt="User" class="user" />
             </ng-container>
 
             <ng-container *ngIf="getEnemyTypeAt(x, y) as scr">
               <img [src]="'assets/' + scr.toLowerCase() + '.png'" [alt]="scr" class="user" />
             </ng-container>
 
-            <!-- <ng-container *ngIf="isDeathPosition(x, y)">
-              <i class="fa-solid fa-circle transparent"></i>
-            </ng-container> -->
-
-            	<!-- Coin image if present -->
               <ng-container *ngIf="isThereACoin(x, y)">
-                <img src="assets/coin.gif" alt="Coin" class="coin-overlay" />
+                <img src="assets/quilmes.gif" alt="Coin" class="coin-overlay" />
               </ng-container>
           </button> 
 
         </div>
 
        
-      </div>
+      </div> -->
 
       <div class="score-section">
         <h3 class="white text">Score: {{score}}</h3>

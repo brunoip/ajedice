@@ -31,31 +31,38 @@ export class AppComponent implements OnInit, OnDestroy {
 
   score: number  = 0;
 
+  rows: number = 0;
+  columns: number = 0;
+
   tiles: string [] = [
-    '                        ','tileset32x32/Sprite-0015','tileset32x32/Sprite-0013','tileset32x32/Sprite-0012',
+        'tileset32x32/floor10','tileset32x32/Sprite-0015','tileset32x32/Sprite-0013','tileset32x32/Sprite-0012',
     'tileset32x32/Sprite-0016','tileset32x32/Sprite-0010','tileset32x32/Sprite-0009','tileset32x32/Sprite-0014',
     'tileset32x32/Sprite-0011','tileset32x32/Sprite-0001','tileset32x32/Sprite-0006','tileset32x32/Sprite-0017',
     'tileset32x32/Sprite-0004','tileset32x32/Sprite-0002','tileset32x32/Sprite-0003','tileset32x32/Sprite-0005'];
 
+
   board: number[][] = [
-    [1, 2, 2, 2, 2, 2, 4,11, 1, 2, 2, 2, 2, 2, 2, 4],
-    [3,14,15,14,15,14, 8,11, 3,15,14,15,14,15,14, 8],
-    [3,10, 9,10, 9,10, 8,11, 3,10, 9,10, 9,10, 9, 8],
-    [3, 9,10, 9,10, 9,12, 2,13, 9,10, 9,10, 9,10, 8],
-    [3,10, 9,10, 9,10, 9,10, 9,10, 9,10, 9,10, 9, 8],
-    [3, 9,10, 9,10, 9,10, 9,10, 9,10, 9,10, 9,10, 8],
-    [3,10, 9,10, 9,10, 9,10, 9,10, 9,10, 9,10, 9, 8],
-    [3, 9,10, 9,10, 9,10, 9,10, 9,10, 9,10, 9,10, 8],
-    [3,10, 9,10, 9,10, 9,10, 9,10, 9,10, 9,10, 9, 8],
-    [3, 9,10, 9,10, 9,10, 9,10, 9,10, 9,10, 9,10, 8],
-    [3,10, 9,10, 9,10, 9,10, 9,10, 9,10, 9,10, 9, 8],
-    [3, 9,10, 9,10, 9,10, 9,10, 9,10, 9,10, 9,10, 8],
-    [3,10, 9,10, 9,10, 9,10, 9,10, 9,10, 9,10, 9, 8],
-    [3, 9,10, 9,10, 9,10, 9,10, 9,10, 9,10, 9,10, 8],
-    [3,10, 9,10, 9,10, 9,10, 9,10, 9,10, 9,10, 9, 8],
-    [6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 5],
-    
-  ];
+    [  1,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  4,],
+    [  3, 14, 15, 14, 15, 14, 15, 14, 15, 14, 15, 14, 15, 14, 15, 14, 15, 14, 15,  8,],
+    [  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  8,],
+    [  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  8,],
+    [  3,  0,  0,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  0,  0,  8,],
+    [  3,  0,  0,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  0,  0,  8,],
+    [  3,  0,  0,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  0,  0,  8,],
+    [  3,  0,  0,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  0,  0,  8,],
+    [  3,  0,  0,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  0,  0,  8,],
+    [  3,  0,  0,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  0,  0,  8,],
+    [  3,  0,  0,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  0,  0,  8,],
+    [  3,  0,  0,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  0,  0,  8,],
+    [  3,  0,  0,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  0,  0,  8,],
+    [  3,  0,  0,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  0,  0,  8,],
+    [  3,  0,  0,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  0,  0,  8,],
+    [  3,  0,  0,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  9,  0,  0,  8,],
+    [  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  8,],
+    [  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  8,],
+    [  6,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  5,],
+       
+ ];
   currentPosition: SquarePosition = {x:3, y:4}
 
   characters = [
@@ -71,14 +78,23 @@ export class AppComponent implements OnInit, OnDestroy {
   private audio!: HTMLAudioElement;
 
   constructor( private audioService: AudioService ) {
-		// Initialize the 16x16 matrix
-		for (let y = 0; y < 16; y++) {
+
+    this.rows = this.board.length;
+    this.columns = this.board[0]?.length ?? 0;
+
+    console.log('columns ',this.columns, ' rows ', this.rows);
+
+    		// Initialize the 16x16 matrix
+		for (let y = 0; y < this.columns; y++) {
 			const row = [];
-			for (let x = 0; x < 16; x++) {
+			for (let x = 0; x < this.rows; x++) {
 				row.push('');
 			}
 			this.square.push(row);
 		}
+
+    console.log('square ',this.square, );
+
 
     this.currentPosition = {x:8, y:11};
     this.dices.push(3);
@@ -90,14 +106,20 @@ export class AppComponent implements OnInit, OnDestroy {
 
     const patovicaTorre: Enemy= {type: 'Rook',image: "patovicatorre", position: {x:4, y:6}}
     const patovicaAlfil: Enemy= {type: 'Bishop',image: "patovicaalfil", position: {x:12, y:10}}
-
+    const patovicaCaballo: Enemy= {type: 'Knight',image: "patovicacaballo", position: {x:12, y:5}}
     this.enemies.push(patovicaTorre);
     this.enemies.push(patovicaAlfil);
+    this.enemies.push(patovicaCaballo);
+
 	}
 
   ngOnInit() {
 		this.audioService.init('assets/sounds/music.wav', true); // Enable looping
     //this.playAudio()
+	}
+
+  get columnCount(): number {
+		return this.board[0]?.length ?? 0;
 	}
 
   getTile(x: number, y: number): string {
@@ -120,8 +142,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   generateTrees(){
     for (let i = 0; i < this.maxTrees; i++) {
-      const randomValueX = Math.floor(Math.random() * 14) + 1; 
-      const randomValueY = Math.floor(Math.random() * 14) + 1;
+      const randomValueX = Math.floor(Math.random() * this.columns); 
+      const randomValueY = Math.floor(Math.random() * this.rows);
       if(this.board[randomValueY][randomValueX]===9 || this.board[randomValueY][randomValueX]==10)
       this.trees.push({x:randomValueX, y:randomValueY});
     }
@@ -130,8 +152,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   generateCoins(){
     for (let i = 0; i < this.maxCoins; i++) {
-      const randomValueX = Math.floor(Math.random() * 14) + 1; 
-      const randomValueY = Math.floor(Math.random() * 14) + 1;
+      const randomValueX = Math.floor(Math.random() * this.columns); 
+      const randomValueY = Math.floor(Math.random() * this.rows);
       if(!this.isThereATree(randomValueX,randomValueY))
         if(this.board[randomValueY][randomValueX]===9 || this.board[randomValueY][randomValueX]==10)
           this.coins.push({x:randomValueX, y:randomValueY});
@@ -166,22 +188,38 @@ export class AppComponent implements OnInit, OnDestroy {
 
   moveToPosition(x: number, y: number){
     let distanceMoved = 0;
+    let richier = false;
+    let dead = false;
 
     if (this.isAvailablePosition(x, y) && !this.isSamePosition(x, y)) {
+      // const dx = Math.abs(this.currentPosition.x - x);
+      // const dy = Math.abs(this.currentPosition.y - y);
+    
+      // if (x === this.currentPosition.x) {
+      //   distanceMoved = dy; // Vertical move
+      // } else if (y === this.currentPosition.y) {
+      //   distanceMoved = dx; // Horizontal move
+      // } else if (dx === dy) {
+      //   distanceMoved = dx; // Diagonal move
+      // }
       const dx = Math.abs(this.currentPosition.x - x);
       const dy = Math.abs(this.currentPosition.y - y);
-    
+
       if (x === this.currentPosition.x) {
         distanceMoved = dy; // Vertical move
       } else if (y === this.currentPosition.y) {
         distanceMoved = dx; // Horizontal move
       } else if (dx === dy) {
         distanceMoved = dx; // Diagonal move
+      } else if ((dx === 2 && dy === 1) || (dx === 1 && dy === 2)) {
+        distanceMoved = 1; // Knight move
+      } else {
+        distanceMoved = -1; // Invalid move or something else
       }
     
       this.currentPosition = { x, y };
-      this.removeCoin(x, y);
-      this.didPlayerDie();
+      richier = this.removeCoin(x, y);
+      dead = this.didPlayerDie();
     }
 
     if(distanceMoved>0){
@@ -189,11 +227,18 @@ export class AppComponent implements OnInit, OnDestroy {
       if(this.currentStep>=3)
         this.currentStep = 0;
 
+
     const stepSounds = ['assets/sounds/move squares-001.wav','assets/sounds/move squares-002.wav','assets/sounds/move squares-003.wav']
 
-      this.removeClosestGreaterOrEqual(distanceMoved);
-      const audio = new Audio(stepSounds[this.currentStep]);
-
+    this.removeClosestGreaterOrEqual(distanceMoved);
+    let audio = new Audio(stepSounds[this.currentStep]);
+    if(dead){
+      audio = new Audio('assets/sounds/die.wav');
+    }else{
+      if (richier){
+        audio = new Audio('assets/sounds/beer.wav');
+      }
+    }
 
       audio.onerror = () => {
         console.error('Audio error code:', audio.error?.code);
@@ -207,12 +252,14 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  removeCoin(x: number, y: number): void {
+  removeCoin(x: number, y: number): boolean {
     const index = this.coins.findIndex(coin => coin.x === x && coin.y === y);
     if (index !== -1) {
       this.coins.splice(index, 1); // Remove the coin
       this.score += 100; // Increase score
+      return true;
     }  
+    return false;
   }
 
   removeClosestGreaterOrEqual(target: number): void {
@@ -273,11 +320,13 @@ export class AppComponent implements OnInit, OnDestroy {
     );
   }
 
-  didPlayerDie(){
+  didPlayerDie(): boolean{
     if(this.isDeathPosition(this.currentPosition.x, this.currentPosition.y)){
       const killer = this.enemies[this.getDeathEnemyIndex(this.currentPosition.x, this.currentPosition.y)];
       killer.position = this.currentPosition;
+      return true
     }
+    return false
   }
 
   isAvailablePositionForSomeone( character: string, currentPosition: SquarePosition, newPosition: SquarePosition, diceValue: number): boolean { 
