@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ajedice": {
+    "cyberpawn": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/ajedice",
+            "outputPath": "dist/cyberpawn",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -58,10 +58,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "ajedice:build:production"
+              "buildTarget": "cyberpawn:build:production"
             },
             "development": {
-              "buildTarget": "ajedice:build:development"
+              "buildTarget": "cyberpawn:build:development"
             }
           },
           "defaultConfiguration": "development"

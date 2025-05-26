@@ -16,7 +16,7 @@ import { Level } from './models/level.model';
 })
 
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'ajedice';
+  title = 'cyberpawn';
   
   currentLevel: Level  = {
     name: '', 
