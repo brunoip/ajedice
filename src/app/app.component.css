@@ -3,9 +3,6 @@
 	flex-direction: column;
 	margin: 0px auto;
 }
-.row {
-	display: flex;
-}
 
 button {
 	width: 32px;
@@ -25,16 +22,6 @@ button {
 	position: relative;
 
 	touch-action: manipulation !important;
-}
-
-.active {
-	background-color:rgb(195, 160, 130);
-	color: white;
-}
-
-.availablePosition {
-	background-color: rgb(195, 160, 130);
-	color: white;
 }
 
 .black{
@@ -58,19 +45,6 @@ button {
 	z-index: 1; /* Ensure it's on top of coin */
 	position: relative; /* Required for z-index to take effect */
 }
-
-.availablePosition:hover {
-    cursor: pointer;
-    background-color: darkgray;
-}
-
- button.tree {
-	background-image: url('/assets/block.png');
-}
-
-button.grass {
-	background-image: url('/assets/ground.png');
-} 
 
 .dices-container{
 	display: flex;
@@ -135,8 +109,6 @@ button.grass {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	/* width: 24px;
-	height: 24px; */
 	pointer-events: none; /* So it doesn’t interfere with button clicks */
 	z-index: 2; /* Ensure it's on top of background, below or above icons if needed */
 }
@@ -191,4 +163,51 @@ button.grass {
 
 .tile-overlay {
 	pointer-events: auto;
+}
+
+.data-section{
+	display: flex;
+    width: 400px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.lives-section{
+	display: flex;
+    gap: 10px;
+    color: white;
+    font-size: 24px;
+	margin-left: auto;
+}
+
+.score-section{
+    font-size: 24px;
+    font-family: monospace;
+	 color: white;
+}
+
+.score{
+	 margin: 0px;
+	     font-family: monospace;
+}
+
+.bottom-panel{
+	margin: 12px;
+    display: flex;
+	margin: 16px auto;
+}
+
+.tryAgainButton{
+	width: 250px;
+	font-family: monospace;
+	background-color: rgb(88, 14, 42);
+	color:  rgb(148, 22, 57);
+	border: 2px solid rgb(148, 22, 57);
+	cursor: pointer;
+}
+
+.tryAgainButton:hover{
+	color:  rgb(88, 14, 42);
+	border: 2px solid  rgb(88, 14, 42);
+	background-color:  rgb(148, 22, 57);
 }

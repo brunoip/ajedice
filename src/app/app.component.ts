@@ -42,13 +42,15 @@ export class AppComponent implements OnInit, OnDestroy {
   columns: number = 0;
 	selectedCharacterIndex: number = 0;
 	data: any;
+  lives:number = 3;
+  liveLostMessage:boolean = false;
 
   tiles: string [] = [
         'tileset32x32/floor10','tileset32x32/Sprite-0015','tileset32x32/Sprite-0013','tileset32x32/Sprite-0012',
     'tileset32x32/Sprite-0016','tileset32x32/Sprite-0010','tileset32x32/Sprite-0009','tileset32x32/Sprite-0014',
     'tileset32x32/Sprite-0011','tileset32x32/Sprite-0001','tileset32x32/Sprite-0006','tileset32x32/Sprite-0017',
-    'tileset32x32/Sprite-0004','tileset32x32/Sprite-0002','tileset32x32/Sprite-0003','tileset32x32/Sprite-0005'];
-
+    'tileset32x32/Sprite-0004','tileset32x32/Sprite-0002','tileset32x32/Sprite-0003','tileset32x32/Sprite-0005',
+    'tileset32x32/Sprite-0007','tileset32x32/Sprite-0008','tileset32x32/Sprite-0003','tileset32x32/Sprite-0005'];
   brands: string [] = ['shcneider','brahma','quilmes','andes'];
 
   characters = [
@@ -213,24 +215,16 @@ export class AppComponent implements OnInit, OnDestroy {
       this.checkNextLevel(x, y);
     }
 
-    if(distanceMoved>0){
-      this.currentStep++;
-      if(this.currentStep>=3)
-        this.currentStep = 0;
-
-
-      const stepSounds = ['move squares-001','move squares-002','move squares-003']
-
+     if(distanceMoved>0){
+      const stepSounds = ['move squares-001', 'move squares-002', 'move squares-003'];
+      this.currentStep = (this.currentStep + 1) % stepSounds.length;
+      const audioFile = stepSounds[this.currentStep];
+  
       this.removeClosestGreaterOrEqual(distanceMoved);
-      let audioFile = stepSounds[this.currentStep];
-      if(dead){
-        audioFile = 'die';
-      }else{
-        if (richier){
-          audioFile = 'beer';
-        }
+      
+      if(!dead && !richier){
+         this.playSoundEffect(audioFile);
       }
-      this.playSoundEffect(audioFile);
     }
   }
 
@@ -249,9 +243,10 @@ export class AppComponent implements OnInit, OnDestroy {
   removeCoin(x: number, y: number): boolean {
     const index = this.currentLevel.coins.findIndex(coin => coin.x === x && coin.y === y);
     if (index !== -1) {
-      this.currentLevel.coins.splice(index, 1); // Remove the coin
-      this.currentScore += 100; // Increase score
+      this.currentLevel.coins.splice(index, 1);
+      this.currentScore += 100;
       this.totalScore += 100;
+      this.playSoundEffect('beer');
       return true;
     }  
     return false;
@@ -284,6 +279,21 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
+  tryAgain(){
+    console.log('try again click');
+    this.loadLevel(this.currentLevel.name);
+    this.liveLostMessage = false;
+  }
+
+  gameOver(){
+    this.loadLevel('level2');
+    this.totalScore = 0;
+    this.currentScore = 0;
+    this.selectedCharacterIndex = 0;
+    this.lives = 3;
+    this.liveLostMessage = false;
+  }
+
   selectCharacter(index: number): void {
 		this.selectedCharacterIndex = index;
     this.playSoundEffect(this.getSelectedCharacter().name.toLocaleLowerCase());
@@ -294,10 +304,13 @@ export class AppComponent implements OnInit, OnDestroy {
 	}
 
   isAvailablePosition(x: number, y: number): boolean{
-    if (x === this.currentPosition.x && y === this.currentPosition.y)
+    if(x === this.currentPosition.x && y === this.currentPosition.y)
       return false;
 
-    if (this.currentLevel.board[y][x] != 9 && this.currentLevel.board[y][x] !=10)
+    if(this.getEnemyTypeAt(x, y) != null)
+       return false;
+
+    if(this.currentLevel.board[y][x] != 9 && this.currentLevel.board[y][x] !=10)
       return false;
 
     const character = this.getSelectedCharacter().name;
@@ -313,7 +326,6 @@ export class AppComponent implements OnInit, OnDestroy {
           this.loadLevel(this.currentLevel.nextLevel);
       }
     }
-  
   }
 
   exitAvailable(): boolean{
@@ -347,6 +359,9 @@ export class AppComponent implements OnInit, OnDestroy {
     if(this.isDeathPosition(this.currentPosition.x, this.currentPosition.y)){
       const killer = this.currentLevel.enemies[this.getDeathEnemyIndex(this.currentPosition.x, this.currentPosition.y)];
       killer.position = this.currentPosition;
+      this.playSoundEffect('die');
+      this.liveLostMessage = true;
+      this.lives--;
       return true
     }
     return false
