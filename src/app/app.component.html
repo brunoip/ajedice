@@ -6,7 +6,7 @@
     </div>
 
     <div class="grid" [ngStyle]="{ 'grid-template-columns': 'repeat(' + columnCount + ', 1fr)' }">
-      <ng-container *ngFor="let row of board; let y = index">
+      <ng-container *ngFor="let row of currentLevel.board; let y = index">
         <ng-container *ngFor="let cell of row; let x = index">
           <button
             (click)="moveToPosition(x, y)"
@@ -21,7 +21,21 @@
           </ng-container>
           
           <ng-container *ngIf="isAvailablePosition(x, y)">
-            <img src="assets/tileset32x32/pisoporseleccionar.gif" class="tile-overlay" />
+            <div (mouseenter)="onHoverEnter(x, y)" (mouseleave)="onHoverLeave()" >
+            <img
+              [src]="isHovered(x, y)
+                ? 'assets/tileset32x32/animacionpiso32x32activado.gif'
+                : 'assets/tileset32x32/pisoporseleccionar.gif'"
+              class="tile-overlay"
+            />
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="isExitPosition(x, y)">
+            <img
+              src= 'assets/tileset32x32/pisoencendidoconlucesneon.gif'
+              class="tile-overlay"
+            />
           </ng-container>
 
           <ng-container *ngIf="isSamePosition(x, y)">
@@ -33,7 +47,7 @@
           </ng-container>
 
           <ng-container *ngIf="isThereACoin(x, y)">
-            <img src="assets/brahma.gif" alt="Coin" class="coin-overlay" />
+            <img [src]="getCoinType(x, y)" alt="Coin" class="coin-overlay" />
           </ng-container>
 
           </button>
@@ -41,48 +55,8 @@
       </ng-container>
     </div>
   
-      <!-- <div class="grid">
-
-        
-        <div *ngFor="let row of square; let y = index" class="row">
- 
-          <button
-            *ngFor="let col of row; let x = index"
-            (click)="moveToPosition(x, y)"
-            [ngClass]="{ }" >
-
-            <ng-container>
-              <img [src]="getTile(x, y)" class="tile-overlay"/>
-            </ng-container>
-
-            <ng-container *ngIf="isThereATree(x, y)">
-              <img src="assets/tileset32x32/pisoapagado.png" class="tile-overlay" />
-            </ng-container>
-            
-            <ng-container *ngIf="isAvailablePosition(x, y)">
-              <img src="assets/tileset32x32/pisoporseleccionar.gif" class="tile-overlay" />
-            </ng-container>
-
-            <ng-container *ngIf="isSamePosition(x, y)">
-              <img src="assets/animacionpeon32x32.gif" alt="User" class="user" />
-            </ng-container>
-
-            <ng-container *ngIf="getEnemyTypeAt(x, y) as scr">
-              <img [src]="'assets/' + scr.toLowerCase() + '.png'" [alt]="scr" class="user" />
-            </ng-container>
-
-              <ng-container *ngIf="isThereACoin(x, y)">
-                <img src="assets/quilmes.gif" alt="Coin" class="coin-overlay" />
-              </ng-container>
-          </button> 
-
-        </div>
-
-       
-      </div> -->
-
       <div class="score-section">
-        <h3 class="white text">Score: {{score}}</h3>
+        <h3 class="white text">Score: {{totalScore}}</h3>
       </div>
 
       <div class="control-panel">
@@ -104,16 +78,16 @@
             *ngFor="let character of characters; let i = index"
             [class.active]="selectedCharacterIndex === i"
             (click)="selectCharacter(i)"
-            [title]="character.name">
+            [title]="character.name"
+            [disabled]="!currentLevel.availableDices.includes(i)">
             <i [class]="character.icon"></i>
           </button>
         </div>
 
-        <div class="music-control-panel">
-          
+        <!-- <div class="music-control-panel">
           <button (click)="playAudio()"><i class="fa-solid fa-play"></i></button>
           <button (click)="stopAudio()"><i class="fa-solid fa-pause"></i></button>
-        </div>
+        </div> -->
         
       </div>
 
