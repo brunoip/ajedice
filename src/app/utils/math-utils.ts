@@ -18,6 +18,9 @@ export function isAvailablePositionOld(currentPosition: SquarePosition, newPosit
   
     const absDx = Math.abs(dx);
     const absDy = Math.abs(dy);
+
+    if (diceValue < 1)
+      return false;
   
     // Only allow movement in a straight line (horizontal or vertical)
     if (absDx !== 0 && absDy !== 0)
@@ -177,7 +180,10 @@ export function isAvailablePositionQueen(currentPosition: SquarePosition, newPos
 export function isAvailablePositionKnight(currentPosition: SquarePosition, newPosition: SquarePosition, diceValue: number, obstacles: SquarePosition[], maxObstacles: number): boolean { //knight
     const dx = Math.abs(newPosition.x - currentPosition.x);
     const dy = Math.abs(newPosition.y - currentPosition.y);
-
+    
+    if (diceValue < 1)
+      return false;
+    
     // Check for valid knight move
     const isKnightMove = (dx === 2 && dy === 1) || (dx === 1 && dy === 2);
     if (!isKnightMove){

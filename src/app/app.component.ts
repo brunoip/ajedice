@@ -286,7 +286,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   selectCharacter(index: number): void {
 		this.selectedCharacterIndex = index;
-    console.log(this.getSelectedCharacter());
     this.playSoundEffect(this.getSelectedCharacter().name.toLocaleLowerCase());
 	}
 
