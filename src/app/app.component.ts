@@ -272,7 +272,7 @@ export class AppComponent implements OnInit, OnDestroy {
   reRoll(){
     if(this.dices.length < 1){
       for (let i = 0; i < 1; i++) {
-        const randomValue = Math.floor(Math.random() * 6) + 1; // random number from 1 to 6
+        const randomValue = Math.floor(Math.random() * 6) + 1;
         this.dices.push(randomValue);
         this.playSoundEffect('reroll')
       }
@@ -280,7 +280,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   tryAgain(){
-    console.log('try again click');
     this.loadLevel(this.currentLevel.name);
     this.liveLostMessage = false;
   }

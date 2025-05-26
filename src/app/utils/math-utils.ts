@@ -1,4 +1,4 @@
-interface SquarePosition {x: number, y:number}
+import { SquarePosition } from '../models/squarePosition.model';
 
 export function isAvailablePositionOld(currentPosition: SquarePosition, newPosition: SquarePosition, diceValue: number): boolean { //old
     if( newPosition.x === currentPosition.x && newPosition.y === currentPosition.y)

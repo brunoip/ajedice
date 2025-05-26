@@ -10,7 +10,7 @@ button {
 	margin: 0px;
     border-width: 0.5px;
     border-radius: 0px;
-    background-color:  rgb(243, 225, 195);
+    background-color: rgb(23, 0, 29);
     font-size: 20px;
 
 	background-size: cover;
@@ -51,10 +51,11 @@ button {
 	gap: 0px;
 	justify-content: center;
 	align-items: center;
+	margin: 0px 12px;
 }
 
 .control-panel{
-    margin: 4px auto;
+    margin: 12px auto;
 	display: flex;
 }
 
@@ -139,7 +140,7 @@ button {
  * Code - MIT License - https://github.com/diafygi/dice-css
  * Images - Public Domain - https://openclipart.org/detail/105931/sixsided-dice-faces-lio-01
  */
- .dice{display:inline-block;min-height:2.5em;min-width: 2.5em;padding-left:1em;background-size:2.5em;background-repeat:no-repeat;}
+ .dice{display:inline-block;min-height:2.5em;min-width: 2.5em;padding-left:0em;background-size:2.5em;background-repeat:no-repeat;}
  .dice-1{background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 77 77' height='21.6' width='21.6'%3E%3Cpath d='M1,26Q1,1 26,1h25Q76,1 76,26v25Q76,76 51,76h-25Q1,76 1,51z' style='fill:%23fff;stroke-width:1.5;stroke:%23000'/%3E%3Ccircle cx='38' cy='38' r='7.2' style='fill:%23000;stroke:none'/%3E%3C/svg%3E");}
  .dice-2{background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 77 77' height='21.6' width='21.6'%3E%3Cpath d='M1,26Q1,1 26,1h25Q76,1 76,26v25Q76,76 51,76h-25Q1,76 1,51z' style='fill:%23fff;stroke-width:1.5;stroke:%23000'/%3E%3Cg style='fill:%23000;stroke:none'%3E%3Ccircle cx='20' cy='20' r='7.2'/%3E%3Ccircle cx='57' cy='57' r='7.2'/%3E%3C/g%3E%3C/svg%3E");}
  .dice-3{background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 77 77' height='21.6' width='21.6'%3E%3Cpath d='M1,26Q1,1 26,1h25Q76,1 76,26v25Q76,76 51,76h-25Q1,76 1,51z' style='fill:%23fff;stroke-width:1.5;stroke:%23000'/%3E%3Cg style='fill:%23000;stroke:none'%3E%3Ccircle cx='20' cy='20' r='7.2'/%3E%3Ccircle cx='38' cy='38' r='7.2'/%3E%3Ccircle cx='57' cy='57' r='7.2'/%3E%3C/g%3E%3C/svg%3E");}
@@ -175,13 +176,13 @@ button {
 .lives-section{
 	display: flex;
     gap: 10px;
-    color: white;
+    color: #E91E63;
     font-size: 24px;
 	margin-left: auto;
 }
 
 .score-section{
-    font-size: 24px;
+    font-size: 22px;
     font-family: monospace;
 	 color: white;
 }
