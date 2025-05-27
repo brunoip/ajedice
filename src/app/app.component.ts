@@ -50,7 +50,8 @@ export class AppComponent implements OnInit, OnDestroy {
     'tileset32x32/Sprite-0016','tileset32x32/Sprite-0010','tileset32x32/Sprite-0009','tileset32x32/Sprite-0014',
     'tileset32x32/Sprite-0011','tileset32x32/Sprite-0001','tileset32x32/Sprite-0006','tileset32x32/Sprite-0017',
     'tileset32x32/Sprite-0004','tileset32x32/Sprite-0002','tileset32x32/Sprite-0003','tileset32x32/Sprite-0005',
-    'tileset32x32/Sprite-0007','tileset32x32/Sprite-0008','tileset32x32/Sprite-0003','tileset32x32/Sprite-0005'];
+    'tileset32x32/Sprite-0007','tileset32x32/Sprite-0008','tileset32x32/Sprite-0003','tileset32x32/Sprite-0005',
+         'tileset32x32/floor1',     'tileset32x32/floor2',     'tileset32x32/floor3',    'tileset32x32/floor4'];
   brands: string [] = ['shcneider','brahma','quilmes','andes'];
 
   characters = [
@@ -63,8 +64,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private audio!: HTMLAudioElement;
   hoveredCell: { x: number, y: number } | null = null;
-  constructor( private audioService: AudioService, private dataService: DataService ) {
+	showDiv = false;
 
+  constructor( private audioService: AudioService, private dataService: DataService ) {
 	}
 
   isHovered(x: number, y: number): boolean {
@@ -84,6 +86,7 @@ export class AppComponent implements OnInit, OnDestroy {
     //this.playAudio()
 
     this.loadLevel('level2');
+    setTimeout(() => { this.showDiv = true; }, 100); // Wait 500 milliseconds
 	}
 
   loadLevel(name: string){
@@ -239,7 +242,6 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
-
   removeCoin(x: number, y: number): boolean {
     const index = this.currentLevel.coins.findIndex(coin => coin.x === x && coin.y === y);
     if (index !== -1) {
@@ -322,7 +324,9 @@ export class AppComponent implements OnInit, OnDestroy {
         this.currentLevel.exitPosition.y === this.currentPosition.y){
           this.currentScore = 0;
           this.selectedCharacterIndex = 0;
+           this.showDiv = false; // optional: hide first if needed
           this.loadLevel(this.currentLevel.nextLevel);
+          setTimeout(() => { this.showDiv = true; }, 500); // Delay before showing
       }
     }
   }

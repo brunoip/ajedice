@@ -51,8 +51,8 @@
       </ng-container>
     </div>
   
-    <div class="data-section">
-       <div class="score-section">
+    <div class="data-section"  *ngIf="showDiv">
+      <div class="score-section">
         <h3 class="score">Score: {{totalScore}}</h3>
       </div>
 
@@ -62,47 +62,41 @@
         </div>
       </div>
     </div>
-     
+    
 
-      <div class="control-panel" *ngIf="!liveLostMessage">
-        <div class="dice-panel">
-          <div class="button-wrapper character-select">
-            <button   class="fa-solid fa-arrows-rotate" (click)="reRoll()"></button>
-          </div>
-          <div class="dices-container">
-            <div *ngFor="let dice of dices; let d = index">
-              <div>
-                <span class="dice" [ngClass]="'dice-' + dice"></span>
-              </div>
+    <div class="control-panel" *ngIf="!liveLostMessage && showDiv">
+      <div class="dice-panel">
+        <div class="button-wrapper character-select">
+          <button   class="fa-solid fa-arrows-rotate" (click)="reRoll()"></button>
+        </div>
+        <div class="dices-container">
+          <div *ngFor="let dice of dices; let d = index">
+            <div>
+              <span class="dice" [ngClass]="'dice-' + dice"></span>
             </div>
           </div>
         </div>
-
-        <div class="character-select">
-          <button
-            *ngFor="let character of characters; let i = index"
-            [class.active]="selectedCharacterIndex === i"
-            (click)="selectCharacter(i)"
-            [title]="character.name"
-            [disabled]="!currentLevel.availableDices.includes(i)">
-            <i [class]="character.icon"></i>
-          </button>
-        </div>
-
-        <!-- <div class="music-control-panel">
-          <button (click)="playAudio()"><i class="fa-solid fa-play"></i></button>
-          <button (click)="stopAudio()"><i class="fa-solid fa-pause"></i></button>
-        </div> -->
-        
       </div>
 
-    <div class="bottom-panel" *ngIf="liveLostMessage && lives > 0">
+      <div class="character-select">
+        <button
+          *ngFor="let character of characters; let i = index"
+          [class.active]="selectedCharacterIndex === i"
+          (click)="selectCharacter(i)"
+          [title]="character.name"
+          [disabled]="!currentLevel.availableDices.includes(i)">
+          <i [class]="character.icon"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="bottom-panel" *ngIf="liveLostMessage && lives > 0 && showDiv">
       <div class="">
         <button   class="tryAgainButton" (click)="tryAgain()">Try Again</button>
       </div>
     </div>
 
-    <div class="bottom-panel" *ngIf="liveLostMessage && lives <= 0">
+    <div class="bottom-panel" *ngIf="liveLostMessage && lives <= 0 && showDiv">
       <div class="">
         <button   class="tryAgainButton" (click)="gameOver()">Game Over</button>
       </div>
