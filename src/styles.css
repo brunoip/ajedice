@@ -25,3 +25,20 @@ main {
     max-width: 700px;
     margin-bottom: 3rem;
 }
+
+
+.black{
+    color: black;
+}
+
+.white{
+    color: white;
+}
+
+.text{
+	margin: 8px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 24px;
+    font-family: monospace;
+}

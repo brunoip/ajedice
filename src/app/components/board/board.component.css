@@ -1,0 +1,219 @@
+.grid {
+	display: flex;
+	flex-direction: column;
+	margin: 0px auto;
+}
+
+button {
+	width: 32px;
+	height: 32px;
+	margin: 0px;
+    border-width: 0.5px;
+    border-radius: 0px;
+    background-color: rgb(23, 0, 29);
+    font-size: 20px;
+
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	border: none;
+	padding: 0;
+
+	position: relative;
+
+	touch-action: manipulation !important;
+}
+
+.black{
+    color: black;
+}
+
+.white{
+    color: white;
+}
+
+.text{
+	margin: 8px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 24px;
+    font-family: monospace;
+}
+
+.transparent{
+	color: rgba(0, 0, 0, 0.5);
+	z-index: 1; /* Ensure it's on top of coin */
+	position: relative; /* Required for z-index to take effect */
+}
+
+.dices-container{
+	display: flex;
+	gap: 0px;
+	justify-content: center;
+	align-items: center;
+	margin: 0px 12px;
+}
+
+.control-panel{
+    margin: 12px auto;
+	display: flex;
+}
+
+.dice-panel{
+	display: flex;
+}
+
+.button-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 16px;
+}
+
+.character-select {
+	display: flex;
+	gap: 10px;
+	margin: auto;
+    width: fit-content;
+}
+
+.character-select button {
+	width: 42px;
+	height: 42px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	background-color: #fff;
+	cursor: pointer;
+	font-size: 24px;
+	transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.character-select button.active {
+	background-color: #007bff;
+	color: white;
+	border-color: #007bff;
+}
+
+.music-control-panel{
+	display: flex;
+	justify-content: center; 
+	align-items: center; 
+	gap: 8px;
+	margin-top: 1rem; 
+}
+
+.coin-overlay {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	pointer-events: none; /* So it doesn’t interfere with button clicks */
+	z-index: 2; /* Ensure it's on top of background, below or above icons if needed */
+}
+
+.tile-overlay {
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 32px;
+    height: 32px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.user{
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 2;
+    margin-top: -16px;
+}
+
+/*
+ * Dice.css v1.0
+ * Code - MIT License - https://github.com/diafygi/dice-css
+ * Images - Public Domain - https://openclipart.org/detail/105931/sixsided-dice-faces-lio-01
+ */
+ .dice{display:inline-block;min-height:2.5em;min-width: 2.5em;padding-left:0em;background-size:2.5em;background-repeat:no-repeat;}
+ .dice-1{background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 77 77' height='21.6' width='21.6'%3E%3Cpath d='M1,26Q1,1 26,1h25Q76,1 76,26v25Q76,76 51,76h-25Q1,76 1,51z' style='fill:%23fff;stroke-width:1.5;stroke:%23000'/%3E%3Ccircle cx='38' cy='38' r='7.2' style='fill:%23000;stroke:none'/%3E%3C/svg%3E");}
+ .dice-2{background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 77 77' height='21.6' width='21.6'%3E%3Cpath d='M1,26Q1,1 26,1h25Q76,1 76,26v25Q76,76 51,76h-25Q1,76 1,51z' style='fill:%23fff;stroke-width:1.5;stroke:%23000'/%3E%3Cg style='fill:%23000;stroke:none'%3E%3Ccircle cx='20' cy='20' r='7.2'/%3E%3Ccircle cx='57' cy='57' r='7.2'/%3E%3C/g%3E%3C/svg%3E");}
+ .dice-3{background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 77 77' height='21.6' width='21.6'%3E%3Cpath d='M1,26Q1,1 26,1h25Q76,1 76,26v25Q76,76 51,76h-25Q1,76 1,51z' style='fill:%23fff;stroke-width:1.5;stroke:%23000'/%3E%3Cg style='fill:%23000;stroke:none'%3E%3Ccircle cx='20' cy='20' r='7.2'/%3E%3Ccircle cx='38' cy='38' r='7.2'/%3E%3Ccircle cx='57' cy='57' r='7.2'/%3E%3C/g%3E%3C/svg%3E");}
+ .dice-4{background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 77 77' height='21.6' width='21.6'%3E%3Cpath d='M1,26Q1,1 26,1h25Q76,1 76,26v25Q76,76 51,76h-25Q1,76 1,51z' style='fill:%23fff;stroke-width:1.5;stroke:%23000'/%3E%3Cg style='fill:%23000;stroke:none'%3E%3Ccircle cx='20' cy='20' r='7.2'/%3E%3Ccircle cx='57' cy='57' r='7.2'/%3E%3Ccircle cx='57' cy='20' r='7.2'/%3E%3Ccircle cx='20' cy='57' r='7.2'/%3E%3C/g%3E%3C/svg%3E");}
+ .dice-5{background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 77 77' height='21.6' width='21.6'%3E%3Cpath d='M1,26Q1,1 26,1h25Q76,1 76,26v25Q76,76 51,76h-25Q1,76 1,51z' style='fill:%23fff;stroke-width:1.5;stroke:%23000'/%3E%3Cg style='fill:%23000;stroke:none'%3E%3Ccircle cx='20' cy='20' r='7.2'/%3E%3Ccircle cx='57' cy='57' r='7.2'/%3E%3Ccircle cx='57' cy='20' r='7.2'/%3E%3Ccircle cx='20' cy='57' r='7.2'/%3E%3Ccircle cx='38' cy='38' r='7.2'/%3E%3C/g%3E%3C/svg%3E");}
+ .dice-6{background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 77 77' height='21.6' width='21.6'%3E%3Cpath d='M1,26Q1,1 26,1h25Q76,1 76,26v25Q76,76 51,76h-25Q1,76 1,51z' style='fill:%23fff;stroke-width:1.5;stroke:%23000'/%3E%3Cg style='fill:%23000;stroke:none'%3E%3Ccircle cx='20' cy='20' r='7.2'/%3E%3Ccircle cx='57' cy='57' r='7.2'/%3E%3Ccircle cx='57' cy='20' r='7.2'/%3E%3Ccircle cx='20' cy='57' r='7.2'/%3E%3Ccircle cx='20' cy='38' r='7.2'/%3E%3Ccircle cx='57' cy='38' r='7.2'/%3E%3C/g%3E%3C/svg%3E");}
+
+
+ .grid {
+	display: grid;
+	gap:0px;
+}
+.cell-button {
+	width: 32px;
+	height: 32px;
+}
+
+.cell-button, .tile-overlay {
+	pointer-events: none;
+}
+
+.tile-overlay {
+	pointer-events: auto;
+}
+
+.data-section{
+	display: flex;
+    width: 400px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.lives-section{
+	display: flex;
+    gap: 10px;
+    color: #E91E63;
+    font-size: 24px;
+	margin-left: auto;
+}
+
+.score-section{
+    font-size: 22px;
+    font-family: monospace;
+	 color: white;
+}
+
+.score{
+	 margin: 0px;
+	     font-family: monospace;
+}
+
+.bottom-panel{
+	margin: 12px;
+    display: flex;
+	margin: 16px auto;
+}
+
+.tryAgainButton{
+	width: 250px;
+	font-family: monospace;
+	background-color: rgb(88, 14, 42);
+	color:  rgb(148, 22, 57);
+	border: 2px solid rgb(148, 22, 57);
+	cursor: pointer;
+}
+
+.tryAgainButton:hover{
+	color:  rgb(88, 14, 42);
+	border: 2px solid  rgb(88, 14, 42);
+	background-color:  rgb(148, 22, 57);
+}
+
+img {
+	image-rendering: crisp-edges;
+	image-rendering: pixelated;
+}
