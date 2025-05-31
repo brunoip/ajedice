@@ -24,22 +24,6 @@ button {
 	touch-action: manipulation !important;
 }
 
-.black{
-    color: black;
-}
-
-.white{
-    color: white;
-}
-
-.text{
-	margin: 8px;
-    vertical-align: middle;
-    text-align: center;
-    font-size: 24px;
-    font-family: monospace;
-}
-
 .transparent{
 	color: rgba(0, 0, 0, 0.5);
 	z-index: 1; /* Ensure it's on top of coin */
@@ -216,4 +200,21 @@ button {
 img {
 	image-rendering: crisp-edges;
 	image-rendering: pixelated;
+}
+
+.character-select {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr); /* 3 columns */
+	gap: 0.5rem; /* spacing between buttons, adjust as needed */
+}
+
+.character-select button {
+	width: 100%;
+	/* aspect-ratio: 1 / 1;  Makes buttons square */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.5rem; /* optional, size for the icon */
+	gap: 4px;
+	padding: 4px;
 }

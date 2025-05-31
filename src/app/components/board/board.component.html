@@ -63,7 +63,6 @@
         </div>
       </div>
     </div>
-    
 
     <div class="control-panel" *ngIf="!liveLostMessage && showDiv">
       <div class="dice-panel">
@@ -79,7 +78,7 @@
         </div>
       </div>
 
-      <div class="character-select">
+      <!-- <div class="character-select">
         <button
           *ngFor="let character of characters; let i = index"
           [class.active]="selectedCharacterIndex === i"
@@ -88,7 +87,21 @@
           [disabled]="!currentLevel.availableDices.includes(i)">
           <i [class]="character.icon"></i>
         </button>
-      </div>
+      </div> -->
+
+      <div class="character-select">
+	<button
+		*ngFor="let character of characters; let i = index"
+		[class.active]="selectedCharacterIndex === i"
+		(click)="selectCharacter(i)"
+		[title]="character.name"
+		[disabled]="!availableCharacter(character.name)">
+		<i [class]="character.icon"></i >
+    <span class="count" [style]="{'font-size': '16px'}">
+			 x {{ getCharacterCount(character.name) }}
+		</span>
+	</button>
+</div>
     </div>
 
     <div class="bottom-panel" *ngIf="liveLostMessage && lives > 0 && showDiv">

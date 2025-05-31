@@ -138,6 +138,47 @@ export function isAvailablePositionQueen(currentPosition: SquarePosition, newPos
     return false;
   }
 
+  export function isAvailablePositionKing(currentPosition: SquarePosition, newPosition: SquarePosition, diceValue: number, obstacles: SquarePosition[], maxObstacles: number): boolean { //rect and diagonal
+    const dx = newPosition.x - currentPosition.x;
+    const dy = newPosition.y - currentPosition.y;
+  
+    const absDx = Math.abs(dx);
+    const absDy = Math.abs(dy);
+  
+    // Allow movement only in straight lines (horizontal, vertical, or diagonal)
+    const isStraightLine = (absDx === 0 || absDy === 0 || absDx === absDy);
+    if (!isStraightLine)
+      return false;
+  
+    // Ensure the move is within dice range
+    const distance = Math.max(absDx, absDy);
+    if (distance > 1)
+      return false;
+  
+    // Determine movement direction (-1, 0, or 1)
+    const stepX = dx === 0 ? 0 : dx / absDx;
+    const stepY = dy === 0 ? 0 : dy / absDy;
+  
+    let cx = currentPosition.x;
+    let cy = currentPosition.y;
+  
+    // Walk step-by-step and check for trees
+    for (let i = 1; i <= distance; i++) {
+      cx += stepX;
+      cy += stepY;
+  
+      if (isThereAnObstacle({x: cx, y: cy},obstacles, maxObstacles )){
+        return false;
+      }
+      
+  
+      if (cx === newPosition.x && cy === newPosition.y)
+        return true;
+    }
+  
+    return false;
+  }
+
    export function isAvailablePositionBishop(currentPosition: SquarePosition, newPosition: SquarePosition, diceValue: number, obstacles: SquarePosition[], maxObstacles: number): boolean { // only diagonal
     const dx = newPosition.x - currentPosition.x;
     const dy = newPosition.y - currentPosition.y;

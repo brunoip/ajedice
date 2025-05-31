@@ -60,7 +60,17 @@ export class BoardComponent implements OnInit, OnDestroy {
 		{ name: 'Knight', icon: 'fas fa-chess-knight' },
 		{ name: 'Bishop', icon: 'fas fa-chess-bishop' },
 		{ name: 'Rook', icon: 'fas fa-chess-rook' },
-		{ name: 'Queen', icon: 'fas fa-chess-queen' }
+		{ name: 'Queen', icon: 'fas fa-chess-queen' },
+    { name: 'King', icon: 'fas fa-chess-king' },
+	];
+
+  availableCharacters = [
+		{ name: 'Pawn', count: '1' },
+		{ name: 'Knight', count: '2' },
+		{ name: 'Bishop', count: '0' },
+		{ name: 'Rook', count: '2' },
+		{ name: 'Queen', count: '1' },
+    { name: 'King', count: '2' },
 	];
 
   private audio!: HTMLAudioElement;
@@ -94,6 +104,15 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.dataService.getLevelData(name).subscribe(result => {
 			this.data = result;
 			this.onDataLoaded();
+
+        this.availableCharacters = [
+          { name: 'Pawn', count: '1' },
+          { name: 'Knight', count: '2' },
+          { name: 'Bishop', count: '0' },
+          { name: 'Rook', count: '2' },
+          { name: 'Queen', count: '1' },
+          { name: 'King', count: '2' },
+        ];
 		});
   }
 
@@ -111,6 +130,51 @@ export class BoardComponent implements OnInit, OnDestroy {
     const tileindex= this.currentLevel.board[y][x];
     const tileName = this.tiles[tileindex];
     return `assets/${tileName}.png`;
+  }
+
+  getCharacterCount(name: string): string {
+    const match = this.availableCharacters.find(c => c.name === name);
+    return match ? match.count : '0';
+  }
+
+  availableCharacter(name: string): boolean{
+    const match = this.availableCharacters.find(c => c.name === name);
+    return match ? Number(match.count) > 0 : false;
+  }
+
+  decreaseCharacterCount() {
+    const selectedCharacter = this.getSelectedCharacter();
+    const characterName = selectedCharacter.name;
+
+    const match = this.availableCharacters.find(c => c.name === characterName);
+
+    if (match) {
+      let count = Number(match.count);
+      if (count > 0) {
+        count--;
+        match.count = String(count);
+      }
+
+      if (count === 0) {
+        for (let i = 0; i < this.characters.length; i++) {
+          const c = this.characters[i];
+          const available = this.availableCharacters.find(a => a.name === c.name);
+          if (available && Number(available.count) > 0) {
+            this.selectCharacter(i);
+            return;
+          }
+        }
+        // If no available characters found
+        console.log('die for not moves');
+        this.playSoundEffect('die');
+        this.liveLostMessage = true;
+        this.lives--;
+      }
+    }
+  }
+
+  hasAvailableCharacters(): boolean {
+    return this.availableCharacters.some(c => Number(c.count) > 0);
   }
 
   getCoinType(x: number, y: number) {
@@ -147,25 +211,6 @@ export class BoardComponent implements OnInit, OnDestroy {
 			this.square.push(row);
 		}
   }
-
-  /*generateTrees(){
-    for (let i = 0; i <  this.trees.length; i++) {
-      const randomValueX = Math.floor(Math.random() * this.columns); 
-      const randomValueY = Math.floor(Math.random() * this.rows);
-      if(this.board[randomValueY][randomValueX]===9 || this.board[randomValueY][randomValueX]==10)
-      this.trees.push({x:randomValueX, y:randomValueY});
-    }
-  }
-
-  generateCoins(){
-    for (let i = 0; i <  this.coins.length; i++) {
-      const randomValueX = Math.floor(Math.random() * this.columns); 
-      const randomValueY = Math.floor(Math.random() * this.rows);
-      if(!this.isThereATree(randomValueX,randomValueY))
-        if(this.board[randomValueY][randomValueX]===9 || this.board[randomValueY][randomValueX]==10)
-          this.coins.push({x:randomValueX, y:randomValueY});
-    }
-  }*/
 
   maxDiceValue(): number{
     if (this.dices.length === 0) {
@@ -225,6 +270,7 @@ export class BoardComponent implements OnInit, OnDestroy {
       const audioFile = stepSounds[this.currentStep];
   
       this.removeClosestGreaterOrEqual(distanceMoved);
+      this.decreaseCharacterCount();
       
       if(!dead && !richier){
          this.playSoundEffect(audioFile);
@@ -261,6 +307,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   removeClosestGreaterOrEqual(target: number): void {
+    console.log('move: ',target);
     let indexToRemove = -1;
     let minValue = Infinity;
   
@@ -271,7 +318,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         indexToRemove = i;
       }
     }
-  
+  console.log('indexToRemove: ',indexToRemove);
     if (indexToRemove !== -1) {
       this.dices.splice(indexToRemove, 1);
     }
@@ -394,6 +441,9 @@ export class BoardComponent implements OnInit, OnDestroy {
           break;
         case "Pawn": 
           return isAvailablePositionPawn(currentPosition, newPosition, diceValue, this.currentLevel.trees,  this.currentLevel.trees.length);
+          break;
+        case "King": 
+          return isAvailablePositionQueen(currentPosition, newPosition, 1, this.currentLevel.trees,  this.currentLevel.trees.length);
           break;
         default: 
           return isAvailablePositionOld(currentPosition, newPosition, diceValue);
