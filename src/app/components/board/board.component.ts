@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit  } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common'
-import { isAvailablePositionOld, isAvailablePositionKnight, isAvailablePositionPawn, isAvailablePositionBishop, isAvailablePositionQueen, isAvailablePositionRook, isThereAnObstacle} from './../../utils/math-utils';
+import { isAvailablePositionKing, isAvailablePositionOld, isAvailablePositionKnight, isAvailablePositionPawn, isAvailablePositionBishop, isAvailablePositionQueen, isAvailablePositionRook, isThereAnObstacle} from './../../utils/math-utils';
 import { AudioService } from '../../services/audio.service';
 import { DataService } from '../../services/data.service';
 import { SquarePosition } from '../../models/squarePosition.model';
 import { Level } from '../../models/level.model';
+import { AvailableCharacter } from '../../models/availableCharacter.model';
 
 @Component({
   selector: 'app-board',
@@ -29,7 +30,8 @@ export class BoardComponent implements OnInit, OnDestroy {
     requiredPoints: 0,
     exitPosition: {x:0, y:0},
     availableDices: [],
-    nextLevel: ''
+    nextLevel: '',
+    availableCharacters: [],
   };
 
   currentPosition: SquarePosition = {x:3, y:4}
@@ -39,12 +41,17 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   totalScore: number  = 0;
   currentScore: number = 0;
+
+  totalMoves:number = 0;
   rows: number = 0;
   columns: number = 0;
 	selectedCharacterIndex: number = 0;
 	data: any;
   lives:number = 3;
   liveLostMessage:boolean = false;
+
+  isPlayingMusic = false;
+
 
   tiles: string [] = [
         'tileset32x32/floor10','tileset32x32/Sprite-0015','tileset32x32/Sprite-0013','tileset32x32/Sprite-0012',
@@ -64,13 +71,13 @@ export class BoardComponent implements OnInit, OnDestroy {
     { name: 'King', icon: 'fas fa-chess-king' },
 	];
 
-  availableCharacters = [
-		{ name: 'Pawn', count: '1' },
-		{ name: 'Knight', count: '2' },
-		{ name: 'Bishop', count: '0' },
-		{ name: 'Rook', count: '2' },
-		{ name: 'Queen', count: '1' },
-    { name: 'King', count: '2' },
+  availableCharacters: AvailableCharacter[] = [
+		{ name: 'Pawn', count: 0 },
+		{ name: 'Knight', count: 0 },
+		{ name: 'Bishop', count: 0 },
+		{ name: 'Rook', count: 0 },
+		{ name: 'Queen', count: 0 },
+    { name: 'King', count: 0 },
 	];
 
   private audio!: HTMLAudioElement;
@@ -92,9 +99,20 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.hoveredCell = null;
   }
 
+  toggleAudio() {
+    if (this.isPlayingMusic) {
+      this.audioService.stop();
+      this.isPlayingMusic = false;
+    } else {
+      this.audioService.play();
+      this.isPlayingMusic = true;
+    }
+  }
+
   ngOnInit() {
 		this.audioService.init('assets/sounds/synth.mp3', true); // Enable looping
     this.playAudio();
+    this.isPlayingMusic = true;
 
     this.loadLevel('level2');
     setTimeout(() => { this.showDiv = true; }, 100); // Wait 500 milliseconds
@@ -103,16 +121,8 @@ export class BoardComponent implements OnInit, OnDestroy {
   loadLevel(name: string){
     this.dataService.getLevelData(name).subscribe(result => {
 			this.data = result;
+      this.availableCharacters = result.availableCharacters;
 			this.onDataLoaded();
-
-        this.availableCharacters = [
-          { name: 'Pawn', count: '1' },
-          { name: 'Knight', count: '2' },
-          { name: 'Bishop', count: '0' },
-          { name: 'Rook', count: '2' },
-          { name: 'Queen', count: '1' },
-          { name: 'King', count: '2' },
-        ];
 		});
   }
 
@@ -132,9 +142,9 @@ export class BoardComponent implements OnInit, OnDestroy {
     return `assets/${tileName}.png`;
   }
 
-  getCharacterCount(name: string): string {
+  getCharacterCount(name: string): number {
     const match = this.availableCharacters.find(c => c.name === name);
-    return match ? match.count : '0';
+    return match ? match.count : 0;
   }
 
   availableCharacter(name: string): boolean{
@@ -152,7 +162,7 @@ export class BoardComponent implements OnInit, OnDestroy {
       let count = Number(match.count);
       if (count > 0) {
         count--;
-        match.count = String(count);
+        match.count = count;
       }
 
       if (count === 0) {
@@ -265,6 +275,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     }
 
      if(distanceMoved>0){
+      this.totalMoves++;
       const stepSounds = ['move squares-001', 'move squares-002', 'move squares-003'];
       this.currentStep = (this.currentStep + 1) % stepSounds.length;
       const audioFile = stepSounds[this.currentStep];
@@ -280,13 +291,15 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   playSoundEffect(sound: string){
     let audio = new Audio(`assets/sounds/${sound}.wav`);
-    audio.onerror = () => {
-      console.error('Audio error code:', audio.error?.code);
-      console.error('Audio error message:', audio.error?.message || 'Unknown error');
-    };
-    audio.play().catch(err => {
-      console.error('Playback failed:', err);
-    });
+    if(this.isPlayingMusic){
+      audio.onerror = () => {
+        console.error('Audio error code:', audio.error?.code);
+        console.error('Audio error message:', audio.error?.message || 'Unknown error');
+      };
+      audio.play().catch(err => {
+        console.error('Playback failed:', err);
+      });
+    }
   }
 
   removeCoin(x: number, y: number): boolean {
@@ -318,7 +331,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         indexToRemove = i;
       }
     }
-  console.log('indexToRemove: ',indexToRemove);
+
     if (indexToRemove !== -1) {
       this.dices.splice(indexToRemove, 1);
     }
@@ -344,6 +357,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.loadLevel('level2');
     this.totalScore = 0;
     this.currentScore = 0;
+    this.totalMoves=0;
     this.selectedCharacterIndex = 0;
     this.lives = 3;
     this.liveLostMessage = false;
@@ -443,7 +457,7 @@ export class BoardComponent implements OnInit, OnDestroy {
           return isAvailablePositionPawn(currentPosition, newPosition, diceValue, this.currentLevel.trees,  this.currentLevel.trees.length);
           break;
         case "King": 
-          return isAvailablePositionQueen(currentPosition, newPosition, 1, this.currentLevel.trees,  this.currentLevel.trees.length);
+          return isAvailablePositionKing(currentPosition, newPosition, diceValue, this.currentLevel.trees,  this.currentLevel.trees.length);
           break;
         default: 
           return isAvailablePositionOld(currentPosition, newPosition, diceValue);

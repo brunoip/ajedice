@@ -10,3 +10,14 @@
     box-sizing: inherit;
     position: relative;
 }
+
+.start-game-button{
+    padding: 4px;
+    font-size: 16px;
+    background-color: rgb(88, 14, 42);
+    color: rgb(148, 22, 57);
+    border: 2px solid rgb(148, 22, 57);
+    cursor: pointer;
+    font-family: "Press Start 2P", cursive;
+}
+

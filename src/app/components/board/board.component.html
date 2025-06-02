@@ -2,8 +2,11 @@
   <!-- <app-hole-overlay></app-hole-overlay> -->
   <div class="content">
 
-    <div class="main-title">
+    <div class="game-header">
       <h3 class="white text">cyberpawn</h3>
+      <button class="audio-button" (click)="toggleAudio()" aria-label="Toggle sound">
+        {{ !isPlayingMusic ? '🔇' : '🔈' }}
+      </button>
     </div>
 
     <div class="grid" [ngStyle]="{ 'grid-template-columns': 'repeat(' + columnCount + ', 1fr)' }">
@@ -55,6 +58,7 @@
     <div class="data-section"  *ngIf="showDiv">
       <div class="score-section">
         <h3 class="score">Score: {{totalScore}}</h3>
+         <h3 class="score">Moves: {{totalMoves}}</h3>
       </div>
 
       <div class="lives-section">
@@ -66,10 +70,10 @@
 
     <div class="control-panel" *ngIf="!liveLostMessage && showDiv">
       <div class="dice-panel">
-        <div class="button-wrapper character-select">
-          <button   class="fa-solid fa-arrows-rotate" (click)="reRoll()"></button>
+        <div class=""  *ngIf="dices.length === 0">
+          <button   class="re-roll-button fa-solid fa-arrows-rotate" (click)="reRoll()"></button>
         </div>
-        <div class="dices-container">
+        <div class="dices-container" *ngIf="dices.length > 0" >
           <div *ngFor="let dice of dices; let d = index">
             <div>
               <span class="dice" [ngClass]="'dice-' + dice"></span>
@@ -90,18 +94,18 @@
       </div> -->
 
       <div class="character-select">
-	<button
-		*ngFor="let character of characters; let i = index"
-		[class.active]="selectedCharacterIndex === i"
-		(click)="selectCharacter(i)"
-		[title]="character.name"
-		[disabled]="!availableCharacter(character.name)">
-		<i [class]="character.icon"></i >
-    <span class="count" [style]="{'font-size': '16px'}">
-			 x {{ getCharacterCount(character.name) }}
-		</span>
-	</button>
-</div>
+        <button
+          *ngFor="let character of characters; let i = index"
+          [class.active]="selectedCharacterIndex === i"
+          (click)="selectCharacter(i)"
+          [title]="character.name"
+          [disabled]="!availableCharacter(character.name)">
+            <i [class]="character.icon"></i >
+            <span class="count" [style]="{'font-size': '16px'}">
+              x {{ getCharacterCount(character.name) }}
+            </span>
+        </button>
+      </div>
     </div>
 
     <div class="bottom-panel" *ngIf="liveLostMessage && lives > 0 && showDiv">

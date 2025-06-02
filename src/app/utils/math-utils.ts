@@ -138,12 +138,16 @@ export function isAvailablePositionQueen(currentPosition: SquarePosition, newPos
     return false;
   }
 
-  export function isAvailablePositionKing(currentPosition: SquarePosition, newPosition: SquarePosition, diceValue: number, obstacles: SquarePosition[], maxObstacles: number): boolean { //rect and diagonal
+export function isAvailablePositionKing(currentPosition: SquarePosition, newPosition: SquarePosition, diceValue: number, obstacles: SquarePosition[], maxObstacles: number): boolean { //rect and diagonal
     const dx = newPosition.x - currentPosition.x;
     const dy = newPosition.y - currentPosition.y;
   
     const absDx = Math.abs(dx);
     const absDy = Math.abs(dy);
+
+    if( diceValue>1 ){
+      diceValue = 1;
+    }
   
     // Allow movement only in straight lines (horizontal, vertical, or diagonal)
     const isStraightLine = (absDx === 0 || absDy === 0 || absDx === absDy);
@@ -152,7 +156,7 @@ export function isAvailablePositionQueen(currentPosition: SquarePosition, newPos
   
     // Ensure the move is within dice range
     const distance = Math.max(absDx, absDy);
-    if (distance > 1)
+    if (distance > diceValue)
       return false;
   
     // Determine movement direction (-1, 0, or 1)

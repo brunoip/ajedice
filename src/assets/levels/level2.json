@@ -18,9 +18,15 @@
     [  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  8],
     [  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  8],
     [  6,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  5]
-    ],
-      
-  "availableDices": [0,1,2,4],
+    ],  
+  "availableCharacters": [
+		{ "name": "Pawn", "count": 6 },
+		{ "name": "Knight", "count": 4 },
+		{ "name": "Bishop", "count": 0 },
+		{ "name": "Rook", "count": 2 },
+		{ "name": "Queen", "count": 1 },
+    { "name": "King", "count": 2 }
+	],
   "trees": [
     { "x": 5, "y": 6 },
     { "x": 6, "y": 6 },
