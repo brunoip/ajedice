@@ -65,17 +65,17 @@
   "enemies": [
     {
       "type": "Rook",
-      "image": "patovicatorre",
+      "image": "torre32x32",
       "position": { "x": 4, "y": 6 }
     },
     {
       "type": "Bishop",
-      "image": "patovicaalfil",
+      "image": "alfil32x32",
       "position": { "x": 12, "y": 10 }
     },
     {
       "type": "Knight",
-      "image": "patovicacaballo",
+      "image": "caballo32x32",
       "position": { "x": 12, "y": 5 }
     }
   ],
