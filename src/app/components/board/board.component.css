@@ -106,6 +106,10 @@ button {
     margin-top: -16px;
 }
 
+.enemy{
+	 margin-top: -20px;
+}
+
 /*
  * Dice.css v1.0
  * Code - MIT License - https://github.com/diafygi/dice-css
@@ -244,4 +248,14 @@ img {
 .dice-panel{
 	display: flex;
 	width: 90px;
+}
+
+.clickable-tile{
+ cursor: pointer;
+}
+
+.count{
+	font-family: "Press Start 2P", cursive;
+	font-size: 12px;
+	margin-left: 4px;
 }

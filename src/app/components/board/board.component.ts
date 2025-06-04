@@ -32,7 +32,10 @@ export class BoardComponent implements OnInit, OnDestroy {
     availableDices: [],
     nextLevel: '',
     availableCharacters: [],
+    forceGreatRoll: false
   };
+
+  FISRT_LEVEL = 'reina'; 
 
   currentPosition: SquarePosition = {x:3, y:4}
   dices: number[] = [];
@@ -51,6 +54,8 @@ export class BoardComponent implements OnInit, OnDestroy {
   liveLostMessage:boolean = false;
 
   isPlayingMusic = false;
+  winCondition = false;
+  showPopup = false;
 
 
   tiles: string [] = [
@@ -114,7 +119,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.playAudio();
     this.isPlayingMusic = true;
 
-    this.loadLevel('level2');
+    this.loadLevel(this.FISRT_LEVEL);
     setTimeout(() => { this.showDiv = true; }, 100); // Wait 500 milliseconds
 	}
 
@@ -340,7 +345,9 @@ export class BoardComponent implements OnInit, OnDestroy {
   reRoll(){
     if(this.dices.length < 1){
       for (let i = 0; i < 1; i++) {
-        const randomValue = Math.floor(Math.random() * 6) + 1;
+        const randomValue = 
+          this.currentLevel.forceGreatRoll? 
+          Math.floor(Math.random() * 3) + 4 : Math.floor(Math.random() * 6) + 1;
         this.dices.push(randomValue);
         this.playSoundEffect('reroll')
       }
@@ -360,7 +367,8 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.totalMoves=0;
     this.selectedCharacterIndex = 0;
     this.lives = 3;
-    this.liveLostMessage = false;
+    this.liveLostMessage = false;  
+    this.winCondition = false;
   }
 
   selectCharacter(index: number): void {

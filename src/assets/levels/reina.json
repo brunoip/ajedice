@@ -35,7 +35,7 @@
   "enemies": [
     {
         "type": "Queen",
-        "image": "patovicareina",
+        "image": "dama32x32",
         "position": { "x": 7, "y": 7 }
     }
   ],

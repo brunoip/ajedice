@@ -39,22 +39,23 @@
   "enemies": [
     {
       "type": "Rook",
-      "image": "patovicatorre",
+      "image": "torre32x32",
       "position": { "x": 4, "y": 6 }
     },
     {
       "type": "Bishop",
-      "image": "patovicaalfil",
+      "image": "alfil32x32",
       "position": { "x": 10, "y": 9 }
     },
     {
         "type": "Knight",
-        "image": "patovicacaballo",
+        "image": "caballo32x32",
         "position": { "x": 5, "y": 10 }
       }
   ],
   "staritngPosition": { "x": 3, "y": 4 },
   "requiredPoints": 2,
   "exitPosition": { "x": 10, "y": 5 },
-  "nextLevel": "reina"
+  "nextLevel": "reina",
+  "forceGreatRoll": false
   }

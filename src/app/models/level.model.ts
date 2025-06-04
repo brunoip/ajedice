@@ -14,4 +14,5 @@ export interface Level {
     availableDices: number[],
     nextLevel: string,
     availableCharacters: AvailableCharacter[];
+    forceGreatRoll: boolean;
   }

@@ -30,7 +30,7 @@
               [src]="isHovered(x, y)
                 ? 'assets/tileset32x32/animacionpiso32x32activado.gif'
                 : 'assets/tileset32x32/pisoporseleccionar.gif'"
-              class="tile-overlay" />
+              class="tile-overlay clickable-tile" />
             </div>
           </ng-container>
 
@@ -43,7 +43,7 @@
           </ng-container>
 
           <ng-container *ngIf="getEnemyTypeAt(x, y) as scr">
-            <img [src]="'assets/' + scr.toLowerCase() + '.png'" [alt]="scr" class="user" />
+            <img [src]="'assets/' + scr.toLowerCase() + '.gif'" [alt]="scr" class="user enemy" />
           </ng-container>
 
           <ng-container *ngIf="isThereACoin(x, y)">
@@ -101,8 +101,8 @@
           [title]="character.name"
           [disabled]="!availableCharacter(character.name)">
             <i [class]="character.icon"></i >
-            <span class="count" [style]="{'font-size': '16px'}">
-              x {{ getCharacterCount(character.name) }}
+            <span class="count">
+            x{{ getCharacterCount(character.name) }}
             </span>
         </button>
       </div>
@@ -119,8 +119,8 @@
         <button   class="tryAgainButton" (click)="gameOver()">Game Over</button>
       </div>
     </div>
-
   </div>
+
 </main>
 
 <router-outlet />
