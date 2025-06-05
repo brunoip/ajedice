@@ -81,6 +81,6 @@
   "staritngPosition": { "x": 8, "y": 4 },
   "requiredPoints": 3,
   "exitPosition": { "x": 8, "y": 7 },
-  "nextLevel": "level2",
+  "nextLevel": "end",
   "forceGreatRoll": true
   }

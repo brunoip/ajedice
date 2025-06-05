@@ -35,7 +35,8 @@ export class BoardComponent implements OnInit, OnDestroy {
     forceGreatRoll: false
   };
 
-  FISRT_LEVEL = 'reina'; 
+  FISRT_LEVEL = 'intro'; 
+  LAST_LEVEL = 'end'
 
   currentPosition: SquarePosition = {x:3, y:4}
   dices: number[] = [];
@@ -398,11 +399,18 @@ export class BoardComponent implements OnInit, OnDestroy {
     if(this.exitAvailable()){
       if (this.currentLevel.exitPosition.x === this.currentPosition.x &&
         this.currentLevel.exitPosition.y === this.currentPosition.y){
-          this.currentScore = 0;
-          this.selectedCharacterIndex = 0;
-           this.showDiv = false; // optional: hide first if needed
-          this.loadLevel(this.currentLevel.nextLevel);
-          setTimeout(() => { this.showDiv = true; }, 500); // Delay before showing
+          const nextLevel = this.currentLevel.nextLevel;
+          if(nextLevel != this.LAST_LEVEL){
+            this.currentScore = 0;
+            this.selectedCharacterIndex = 0;
+            this.showDiv = false; // optional: hide first if needed
+            this.loadLevel(this.currentLevel.nextLevel);
+            setTimeout(() => { this.showDiv = true; }, 500); // Delay before showing
+          }
+          else{
+            this.winCondition = true;
+          }
+
       }
     }
   }

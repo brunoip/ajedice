@@ -82,17 +82,6 @@
         </div>
       </div>
 
-      <!-- <div class="character-select">
-        <button
-          *ngFor="let character of characters; let i = index"
-          [class.active]="selectedCharacterIndex === i"
-          (click)="selectCharacter(i)"
-          [title]="character.name"
-          [disabled]="!currentLevel.availableDices.includes(i)">
-          <i [class]="character.icon"></i>
-        </button>
-      </div> -->
-
       <div class="character-select">
         <button
           *ngFor="let character of characters; let i = index"
@@ -108,15 +97,21 @@
       </div>
     </div>
 
-    <div class="bottom-panel" *ngIf="liveLostMessage && lives > 0 && showDiv">
+    <div class="bottom-panel" *ngIf="liveLostMessage && lives > 0 && showDiv && !winCondition">
       <div class="">
         <button   class="tryAgainButton" (click)="tryAgain()">Try Again</button>
       </div>
     </div>
 
-    <div class="bottom-panel" *ngIf="liveLostMessage && lives <= 0 && showDiv">
+    <div class="bottom-panel" *ngIf="liveLostMessage && lives <= 0 && showDiv && !winCondition">
       <div class="">
         <button   class="tryAgainButton" (click)="gameOver()">Game Over</button>
+      </div>
+    </div>
+
+    <div class="bottom-panel" *ngIf=" winCondition">
+      <div class="">
+        <button   class="tryAgainButton" (click)="gameOver()">You win</button>
       </div>
     </div>
   </div>
