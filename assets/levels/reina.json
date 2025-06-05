@@ -42,5 +42,6 @@
   "staritngPosition": { "x": 5, "y": 4 },
   "requiredPoints": 2,
   "exitPosition": { "x": 8, "y": 4 },
-  "nextLevel": "level2"
+  "nextLevel": "luka",
+  "forceGreatRoll": false
   }
