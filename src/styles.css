@@ -3,8 +3,17 @@ html, body, button {
 	touch-action: manipulation !important;
 }
 
-body {
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
     background-color: rgb(23, 0, 29);
+}
+
+:host {
+	display: block;
+	height: 100%;
 }
 
 main {
