@@ -97,6 +97,11 @@ button {
     height: 32px;
     pointer-events: none;
     z-index: 1;
+	
+}
+
+.pointer-cursor{
+	cursor: pointer;
 }
 
 .user{
@@ -154,14 +159,14 @@ button {
 
 .data-section{
 	display: flex;
-    width: 400px;
-    max-width: 400px;
+    width: 320px;
+    max-width: 320px;
     margin: 0 auto;
 }
 
 .lives-section{
 	display: flex;
-    gap: 10px;
+    gap: 1px;
     color: #E91E63;
     font-size: 24px;
 	margin-left: auto;
@@ -257,10 +262,6 @@ img {
 	width: 90px;
 }
 
-.clickable-tile{
- cursor: pointer;
-}
-
 .count{
 	font-family: "Press Start 2P", cursive;
 	font-size: 12px;
@@ -294,4 +295,36 @@ img {
 @keyframes bounce {
 	0%, 100% { transform: translateY(0); opacity: 0.3; }
 	50%      { transform: translateY(-8px); opacity: 1; }
+}
+
+.character-button{
+	border: 2px solid;
+	border-radius: 4px;
+	color:#000000 !important;
+	background-color: #D9606E !important;
+	border-color:#720D3F !important;
+}
+
+.character-button:hover{
+	color:#000000 !important;
+	background-color: #9A364F !important;
+	border-color:#720D3F !important;
+}
+
+.character-button:active{
+	color:#FFFFFF !important;
+	background-color: #FF0546 !important;
+	border-color:#FFFFFF !important;
+}
+
+.character-button.active {
+	color: #FFFFFF !important;
+	background-color: #FF0546 !important;
+	border-color: #FFFFFF !important;
+}
+
+.character-button:disabled{
+	color:#474848 !important;
+	background-color: #696A6A !important;
+	border-color:#222034 !important;
 }

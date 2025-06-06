@@ -30,12 +30,16 @@
               [src]="isHovered(x, y)
                 ? 'assets/tileset32x32/animacionpiso32x32activado.gif'
                 : 'assets/tileset32x32/pisoporseleccionar.gif'"
-              class="tile-overlay clickable-tile" />
+              class="tile-overlay pointer-cursor" />
             </div>
           </ng-container>
 
-          <ng-container *ngIf="isExitPosition(x, y)">
-            <img src= 'assets/tileset32x32/pisoencendidoconlucesneon.gif' class="tile-overlay" />
+          <ng-container *ngIf="isExitPosition(x, y) && !isAvailablePosition(x, y)">
+            <img src= 'assets/tileset32x32/pisoencendidoconlucesneon.gif' class="tile-overlay pointer-cursor" />
+          </ng-container>
+
+          <ng-container *ngIf="isExitPosition(x, y) && isAvailablePosition(x, y)">
+            <img src= 'assets/tileset32x32/tileseleccionableganar32x32.gif' class="tile-overlay pointer-cursor" />
           </ng-container>
 
           <ng-container *ngIf="isSamePosition(x, y) && !liveLostMessage">
@@ -63,7 +67,10 @@
 
       <div class="lives-section">
         <div *ngFor="let _ of [].constructor(lives)">
-          <i class="fa-solid fa-heart"></i>
+          <img src="assets/heartlife.png" alt="0" class="heart" />
+        </div>
+       <div *ngFor="let _ of [].constructor(3 - lives)">
+          <img src="assets/heartlifesinvida.png" alt="0" class="heart" />
         </div>
       </div>
     </div>
@@ -71,7 +78,7 @@
     <div class="control-panel" *ngIf="!liveLostMessage && showDiv && !winCondition">
       <div class="dice-panel">
         <div class=""  *ngIf="dices.length === 0">
-          <button   class="re-roll-button fa-solid fa-arrows-rotate" (click)="reRoll()"></button>
+          <button   class="re-roll-button fa-solid fa-arrows-rotate character-button" (click)="reRoll()"></button>
         </div>
         <div class="dices-container" *ngIf="dices.length > 0" >
           <div *ngFor="let dice of dices; let d = index">
@@ -85,6 +92,7 @@
       <div class="character-select">
         <button
           *ngFor="let character of characters; let i = index"
+          class="character-button" 
           [class.active]="selectedCharacterIndex === i"
           (click)="selectCharacter(i)"
           [title]="character.name"

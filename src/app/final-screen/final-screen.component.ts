@@ -11,7 +11,7 @@ import { NgStyle } from '@angular/common';
 })
 export class FinalScreenComponent{
 
-	backgroundImage = 'assets/winscreen.png';
+	backgroundImage = 'assets/backs/fondo_ganaste.png';
 	points = 0;
 	moves = 0;
     condition = false;
@@ -24,7 +24,13 @@ export class FinalScreenComponent{
 		this.moves = state?.moves ?? 0;
 		this.condition = state?.condition ?? true;
 		this.backgroundImage = this.condition
-			? 'assets/winscreen.png'
-			: 'assets/losescreen.png';
+			? 'assets/backs/fondo_ganaste.png'
+			: 'assets/backs/fondo_perdiste.png';
+	}
+
+	getResultTitle(): string{
+		return this.condition
+			? 'assets/backs/titulo_ganaste.png'
+			: 'assets/backs/titulo_perdiste.png';
 	}
 }

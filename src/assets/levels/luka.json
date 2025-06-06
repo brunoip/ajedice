@@ -20,12 +20,12 @@
     [  6,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  5]
     ],  
   "availableCharacters": [
-		{ "name": "Pawn", "count":12 },
-		{ "name": "Knight", "count":9 },
-		{ "name": "Bishop", "count": 3 },
-		{ "name": "Rook", "count": 4 },
+		{ "name": "Pawn", "count": 9 },
+		{ "name": "Knight", "count": 9 },
+		{ "name": "Bishop", "count": 2 },
+		{ "name": "Rook", "count": 3 },
 		{ "name": "Queen", "count": 1 },
-        { "name": "King", "count": 1 }
+    { "name": "King", "count": 1 }
 	],
   "trees": [
   ],

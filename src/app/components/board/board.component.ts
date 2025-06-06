@@ -185,6 +185,12 @@ export class BoardComponent implements OnInit, OnDestroy {
         this.playSoundEffect('die');
         this.liveLostMessage = true;
         this.lives--;
+        if(this.lives <= 0)
+        {
+          this.liveLostMessage = true;  
+          this.winCondition = false;
+          this.goScreen(this.winCondition);
+        }
       }
     }
   }

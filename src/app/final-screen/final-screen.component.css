@@ -174,3 +174,7 @@ h3{
 	display: inline-block;
 	animation: dance 0.5s infinite ease-in-out;
 }
+
+.game-result{
+     margin-top: -20vh;
+}

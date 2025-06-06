@@ -26,6 +26,10 @@
 	transform: translateX(-50%);
 }
 
+.start-game-title{
+    margin-top: 16vh;
+}
+
 h1{
 	margin: 0px;
     color:white;
@@ -93,13 +97,12 @@ h3{
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	margin-top: 40px; /* or use position if needed */
 }
 
 .start-game-button {
 	display: block;
-	width: 200px;        /* or a size that works well */
-	max-width: 80vw;     /* optional: responsive scaling on small screens */
+	width: 200px;
+	max-width: 80vw;
 	height: auto;
 
 	cursor: pointer;

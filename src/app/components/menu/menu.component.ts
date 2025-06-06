@@ -11,7 +11,7 @@ import { NgStyle } from '@angular/common';
 })
 export class MenuComponent implements OnInit  {
 
-	backgroundImage = 'assets/title_image_text.png';
+	backgroundImage = 'assets/backs/fondo_menu.png';
 	
 
 		ngOnInit() {
@@ -26,7 +26,7 @@ export class MenuComponent implements OnInit  {
 	updateBackgroundImage() {
 		const isPortraitMobile = window.innerWidth <= 768 && window.innerHeight > window.innerWidth;
 		this.backgroundImage = isPortraitMobile
-			? 'assets/title_image.png'
-			: 'assets/title_image_text.png';
+			? 'assets/backs/fondo_menu.png'
+			: 'assets/backs/fondo_menu.png';
 	}
 }

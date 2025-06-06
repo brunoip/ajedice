@@ -1,9 +1,10 @@
 <div class="game-banner"
 	[ngStyle]="{ 'background-image': 'url(' + backgroundImage + ')' }">
 	
-  <div class="title">
-    <h1>Cyberpawn</h1>
-  </div>
+
+    <div class="game-result">
+      <img  [src]="getResultTitle()"  alt="Result" />
+    </div>
 
     <div class="result">
       <div class="dancing-text">
@@ -16,6 +17,6 @@
 
     <!-- <button class="start-game-button" routerLink="/game">Start Game</button> -->
    <a [routerLink]="'/game'" class="start-button-wrapper">
-      <img src="assets/botonplay.png" alt="Start Game" class="start-game-button" />
+      <img src="assets/botonreplay.png" alt="Start Game" class="start-game-button" />
     </a>
 </div>
