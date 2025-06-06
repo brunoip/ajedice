@@ -12,6 +12,7 @@ import { NgStyle } from '@angular/common';
 export class MenuComponent implements OnInit  {
 
 	backgroundImage = 'assets/title_image_text.png';
+	
 
 		ngOnInit() {
 		this.updateBackgroundImage();

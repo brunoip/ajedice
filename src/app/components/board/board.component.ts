@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit  } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common'
 import { isAvailablePositionKing, isAvailablePositionOld, isAvailablePositionKnight, isAvailablePositionPawn, isAvailablePositionBishop, isAvailablePositionQueen, isAvailablePositionRook, isThereAnObstacle} from './../../utils/math-utils';
 import { AudioService } from '../../services/audio.service';
@@ -90,7 +90,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   hoveredCell: { x: number, y: number } | null = null;
 	showDiv = false;
 
-  constructor( private audioService: AudioService, private dataService: DataService ) {
+  constructor( private audioService: AudioService, private dataService: DataService, private router: Router ) {
 	}
 
   isHovered(x: number, y: number): boolean {
@@ -362,7 +362,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   gameOver(){
-    this.loadLevel('level2');
+    this.loadLevel(this.FISRT_LEVEL);
     this.totalScore = 0;
     this.currentScore = 0;
     this.totalMoves=0;
@@ -409,6 +409,7 @@ export class BoardComponent implements OnInit, OnDestroy {
           }
           else{
             this.winCondition = true;
+            this.goScreen(this.winCondition);
           }
 
       }
@@ -449,6 +450,12 @@ export class BoardComponent implements OnInit, OnDestroy {
       this.playSoundEffect('die');
       this.liveLostMessage = true;
       this.lives--;
+      if(this.lives <= 0)
+      {
+        this.liveLostMessage = true;  
+        this.winCondition = false;
+        this.goScreen(this.winCondition);
+      }
       return true
     }
     return false
@@ -491,5 +498,17 @@ export class BoardComponent implements OnInit, OnDestroy {
       return true;
     }
     return false
+  }
+
+  goScreen(condition: boolean) {
+    setTimeout(() => {
+      this.router.navigate(['/final-screen'], {
+        state: {
+          points: this.totalScore,
+          moves: this.totalMoves,
+          condition: condition,
+        }
+      });
+    }, 4000); // 3-second delay
   }
 }

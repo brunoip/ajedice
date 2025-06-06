@@ -46,8 +46,8 @@
       "position": { "x":11, "y": 13 }
     },
      {
-      "type": "Bishop",
-      "image": "alfil32x32",
+      "type": "Rook",
+      "image": "torre32x32",
       "position": { "x": 9, "y": 13 }
     },
         {
@@ -60,10 +60,15 @@
       "image": "torre32x32",
       "position": { "x": 11, "y":7 }
     },
-        {
+    {
       "type": "Knight",
       "image": "caballo32x32",
       "position": { "x":10, "y": 4 }
+    },
+    {
+      "type": "Knight",
+      "image": "caballo32x32",
+      "position": { "x":4, "y": 4 }
     }
   ],
   "staritngPosition": { "x": 7, "y": 4 },

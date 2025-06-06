@@ -4,16 +4,26 @@ import { Injectable } from '@angular/core';
 	providedIn: 'root'
 })
 export class AudioService {
+
 	private audio: HTMLAudioElement | null = null;
 
-	init(filePath: string, loop: boolean = false): void {
-		this.audio = new Audio(filePath);
+	init(src: string, loop = false) {
+		if (this.audio) return; // Already initialized — don't reset it
+		this.audio = new Audio(src);
 		this.audio.loop = loop;
-		this.audio.load();
+		this.audio.play();
 	}
 
-	play(): void {
+	play() {
 		this.audio?.play();
+	}
+
+	pause() {
+		this.audio?.pause();
+	}
+
+	isPlaying(): boolean {
+		return !!this.audio && !this.audio.paused;
 	}
 
 	stop(): void {
@@ -23,7 +33,8 @@ export class AudioService {
 		}
 	}
 
-	pause(): void {
-		this.audio?.pause();
+	isInitialized(): boolean {
+		return this.audio !== null;
 	}
+
 }

@@ -68,7 +68,7 @@
       </div>
     </div>
 
-    <div class="control-panel" *ngIf="!liveLostMessage && showDiv">
+    <div class="control-panel" *ngIf="!liveLostMessage && showDiv && !winCondition">
       <div class="dice-panel">
         <div class=""  *ngIf="dices.length === 0">
           <button   class="re-roll-button fa-solid fa-arrows-rotate" (click)="reRoll()"></button>
@@ -103,18 +103,21 @@
       </div>
     </div>
 
-    <div class="bottom-panel" *ngIf="liveLostMessage && lives <= 0 && showDiv && !winCondition">
+    <div class="bottom-panel" *ngIf="liveLostMessage && lives <= 0 && showDiv && !winCondition && false">
       <div class="">
         <button   class="tryAgainButton" (click)="gameOver()">Game Over</button>
       </div>
     </div>
 
-    <div class="bottom-panel" *ngIf=" winCondition">
-      <div class="">
-        <button   class="tryAgainButton" (click)="gameOver()">You win</button>
+    <div class="bottom-panel"  *ngIf="lives <= 0 || winCondition">
+      <div class="loading-dots">
+        <span></span><span></span><span></span>
       </div>
     </div>
+   
   </div>
+
+
 
 </main>
 
