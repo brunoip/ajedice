@@ -87,10 +87,6 @@ h3{
 	justify-content: center;
 }
 
-.title{
-    display: none;
-}
-
 .start-button-wrapper {
 
     display: flex;
@@ -127,6 +123,10 @@ h3{
 	filter: brightness(0.9);
 }
 
+.mobile-title{
+    display: none;
+}
+
 @media screen and (max-width: 768px) and (orientation: portrait) {
     .credits {
         flex-direction: column;
@@ -136,13 +136,17 @@ h3{
         top: 500px;
     }
 
-    .title{
-        display: block;
+    .mobile-title{
+        display: block ;
         margin-top: 60px;
     }
 
     h1{
         font-size: 38px;
+    }
+
+    .hide-on-mobile{
+        display: none;
     }
 }
 
@@ -179,3 +183,4 @@ h3{
 	display: inline-block;
 	animation: dance 0.5s infinite ease-in-out;
 }
+
