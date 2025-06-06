@@ -1,6 +1,10 @@
 <div class="game-banner"
-	style=" background-image: url('assets/title_image.png');">
+	[ngStyle]="{ 'background-image': 'url(' + backgroundImage + ')' }">
 	
+  <div class="title">
+    <h1>Cyberpawn</h1>
+  </div>
+
     <div class="credits">
       <div class="area">
         <h2>Programacion</h2>
@@ -17,5 +21,8 @@
       </div>
     </div>
 
-    <button class="start-game-button" routerLink="/game">Start Game</button>
+    <!-- <button class="start-game-button" routerLink="/game">Start Game</button> -->
+   <a [routerLink]="'/game'" class="start-button-wrapper">
+      <img src="assets/botonplay.png" alt="Start Game" class="start-game-button" />
+    </a>
 </div>

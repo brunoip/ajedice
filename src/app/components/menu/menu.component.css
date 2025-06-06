@@ -83,5 +83,57 @@ h3{
 	justify-content: center;
 }
 
+.title{
+    display: none;
+}
 
+.start-button-wrapper {
 
+    display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	margin-top: 40px; /* or use position if needed */
+}
+
+.start-game-button {
+	display: block;
+	width: 200px;        /* or a size that works well */
+	max-width: 80vw;     /* optional: responsive scaling on small screens */
+	height: auto;
+
+	cursor: pointer;
+	user-select: none;
+	border: none;
+	background: none;
+	padding: 0;
+	margin: 0;
+
+	transition: transform 0.1s ease, filter 0.1s ease;
+}
+
+.start-game-button:hover {
+    margin-top: -1px;
+    margin-left: -1px;
+	filter: brightness(1.2);
+}
+
+.start-game-button:active {
+    margin-top: 1px;
+    margin-left: 1px;
+	filter: brightness(0.9);
+}
+
+@media screen and (max-width: 768px) and (orientation: portrait) {
+    .credits {
+        flex-direction: column;
+        gap: 2px;
+    }
+    .start-game-button{
+        top: 720px;
+    }
+
+    .title{
+        display: block;
+    }
+}
